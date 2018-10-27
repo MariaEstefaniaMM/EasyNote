@@ -1,3 +1,4 @@
+import { LoginPage } from './../login/login';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
@@ -7,8 +8,13 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  //myVariable: string = 'The force is with me';
 
+  constructor(public navCtrl: NavController) {
+  }
+
+  goToLogin() {
+    this.navCtrl.push(LoginPage);
   }
 
 }
