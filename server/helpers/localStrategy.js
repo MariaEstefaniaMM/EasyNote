@@ -1,12 +1,12 @@
-let User = require('./users');
+let User = require('./user');
 let passport = require('passport');
 let localStrategy = require('passport-local').Strategy;
 
 module.exports = new localStrategy({
-    usernameField: 'ced',
+    usernameField: 'username',
     passwordField: 'password'
-},function(ced, password, done) {
-    User.getUserByUsername(ced).then((user)=>{
+},function(username, password, done) {
+    User.getUserByUsername(username).then((user)=>{
         if (user.error) {
             return done(null, false);
         }

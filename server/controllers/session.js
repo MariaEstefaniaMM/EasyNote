@@ -29,6 +29,28 @@ router.post('/login', auth.isLogged, function (req, res, next) {
     })(req, res, next);
 });
 
+router.post('/signup',auth.isLogged,function(req, res, next) {
+    console.log('postSignUp'+req.body.name+req.body.lastName+ req.body.username+ req.body.email+ req.body.password)
+    user.signup(req.body.name, req.body.lastName, req.body.username, req.body.email, req.body.password).then((data) => {
+        console.log('SignUp Successful')
+        res.status(200).send({
+            status: 200,
+            message:'SignUp Successful'
+        });
+        console.log(res)
+    }).catch((err) => {
+        console.log(error)
+      switch (err.constraint) {
+        case 'email':
+         res.send({status:401});
+        break;
+        default:
+         res.send({status:404});
+        break;
+      }
+    });
+});
+
 router.get('/logout', auth.isAuth, function (req, res) {
     req.logout();
     res.status(200).send({
