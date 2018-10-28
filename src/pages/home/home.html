@@ -1,11 +1,21 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      EASY NOTE
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content padding>
-  <button ion-button color="light" (click)="goToLogin()">WELCOME TO EASYNOTE</button>
+  <div class="bg">
+    <div class="head" text-center>
+      <img class="logo" src="/assets/imgs/logo.jpg" >
+      <h1>EasyNote</h1>
+    </div>
+    <div class="inputs">
+      <ion-item class="user">
+        <ion-label floating>Username</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+      <ion-item class="pass">
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+      <button ion-button full class="btn-login" (click)="goToNotes()">login</button>
+      <p class="p-su">New To EasyNote? <a href="" style="color: gray"> Sign up now</a></p>
+    </div>
+  </div>
 </ion-content>
