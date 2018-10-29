@@ -1,9 +1,8 @@
-import { NotePage } from './../note/note';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the PagesTabsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -11,20 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-pages-tabs',
+  templateUrl: 'pages-tabs.html',
 })
-export class LoginPage {
+export class PagesTabsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
-  goToNote() {
-    this.navCtrl.push(NotePage);
+    console.log('ionViewDidLoad PagesTabsPage');
   }
 
 }
