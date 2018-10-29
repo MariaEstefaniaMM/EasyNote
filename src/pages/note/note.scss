@@ -1,3 +1,28 @@
 page-note {
-
+    .n-icon{   
+        background: black;
+    }
+    .textarea-note{
+        height: 260px;
+        resize: none;
+    }
+    .tools{
+        position: absolute;
+        transform: translate(-5%, 400%);
+    }
+    .button{
+        background-color:transparent;
+        color:black;
+    }
+    .n-note{
+        position: absolute;
+        transform: translate(10%, 1020%);
+    }
+    .fab-delete{
+        position: absolute;
+        transform: translate(510%, 660%);
+    }
 }
+
+
+

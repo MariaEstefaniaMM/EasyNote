@@ -1,12 +1,6 @@
+import { NotePage } from './../note/note';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the NotesListPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -15,7 +9,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NotesListPage {
 
+  public isSearchbarOpened = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
+
+  goToNewNotes() {
+    this.navCtrl.push(NotePage);
+    console.log("aqui");
   }
 
   ionViewDidLoad() {
