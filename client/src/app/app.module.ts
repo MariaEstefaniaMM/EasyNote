@@ -9,6 +9,9 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
+import { NotesListPage } from './../pages/notes-list/notes-list';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersProvider } from '../providers/users/users';
 
 @NgModule({
   declarations: [
@@ -16,11 +19,13 @@ import { NotePage } from './../pages/note/note';
     HomePage,
     LoginPage,
     SignupPage,
-    NotePage
+    NotePage,
+    NotesListPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -28,12 +33,14 @@ import { NotePage } from './../pages/note/note';
     HomePage,
     LoginPage,
     SignupPage,
-    NotePage
+    NotePage,
+    NotesListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UsersProvider
   ]
 })
 export class AppModule {}
