@@ -1,7 +1,7 @@
 module.exports.user = {
     
     getEmail: 'SELECT email FROM users WHERE user_email = $1',
-    getUsername: 'SELECT user_username FROM users WHERE user_username = $1',
+    getUsername: 'SELECT * FROM users WHERE user_username = $1',
     addUser: 'INSERT INTO users (user_name, user_lastname, user_username, user_email, user_password) VALUES ($1,$2,$3,$4,$5) RETURNING user_id',
 }
 

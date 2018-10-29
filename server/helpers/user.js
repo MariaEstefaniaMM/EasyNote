@@ -5,7 +5,7 @@ const userQueries = require('./../helpers/queries').user;
 module.exports.login = (username)=>{
     return new Promise((res,rej)=>{ 
         db.connect().then((obj)=>{
-            obj.one(userQueries.getUser,[username]).then((data)=>{
+            obj.one(userQueries.getUsername,[username]).then((data)=>{
                 res(data);
                 obj.done();                
             }).catch((error)=>{
@@ -36,7 +36,7 @@ module.exports.signup = (name, lastname, username, email, password)=>{
         return new Promise((res,rej)=>{
             let hashedPass = bcrypt.hashSync(password, 10);
               db.connect().then((obj)=>{
-                  obj.none(userQueries.addUser,
+                  obj.one(userQueries.addUser,
                     [name, lastname, username, email, hashedPass]).then((data)=>{
                     console.log(data)
                       res(data);

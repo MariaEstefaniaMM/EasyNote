@@ -1,7 +1,9 @@
+import { NotesListPage } from './../notes-list/notes-list';
+import { UsersProvider } from './../../providers/users/users';
 import { SignupPage } from './../signup/signup';
-import { NotePage } from './../note/note';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'page-home',
@@ -9,14 +11,24 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  //myVariable: string = 'The force is with me';
+  user:User={
+    name:"",
+    lastName:"",
+    username:"",
+    email:"",
+    password:""
+  }
 
-
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private usersProvider: UsersProvider) {
   }
 
   goToNotes() {
-    this.navCtrl.push(NotePage);
+    this.usersProvider.login(this.user).then((result) => {
+      console.log(result);
+      this.navCtrl.push(NotesListPage);
+    }, (err) => {
+      console.log(err);
+    });
   }
   goToSignUp(){
     this.navCtrl.push(SignupPage);

@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const auth = require('./../middlewares/isAuth')
 let router = express.Router();
+let user = require('../helpers/user');
 
 router.get('/value', auth.isAuth, (req, res) => {
     res.send(req.session.passport);

@@ -1,13 +1,8 @@
+import { UsersProvider } from './../../providers/users/users';
 import { NotePage } from './../note/note';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -24,7 +19,6 @@ export class LoginPage {
   }
 
   goToNote() {
-    this.navCtrl.push(NotePage);
+    
   }
-
 }
