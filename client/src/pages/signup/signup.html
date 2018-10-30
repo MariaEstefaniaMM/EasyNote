@@ -1,9 +1,3 @@
-<!--
-  Generated template for the SignupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
   <ion-navbar>
     <ion-title>Sign Up</ion-title>
@@ -14,25 +8,31 @@
 <div class="inputs">
   <ion-item class="user">
     <ion-label floating>Name</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.name" type="text"></ion-input>
   </ion-item>
   <ion-item class="lastname">
     <ion-label floating>Lastname</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.lastName" type="text"></ion-input>
   </ion-item>
   <ion-item class="username">
     <ion-label floating>Username</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.username" type="text"></ion-input>
   </ion-item>
   <ion-item class="user">
     <ion-label floating>Email</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input [(ngModel)]="user.email" type="text"></ion-input>
   </ion-item>
     <ion-item class="user">
     <ion-label floating>Password</ion-label>
+<<<<<<< HEAD:src/pages/signup/signup.html
   <ion-input type="password"></ion-input>
   </ion-item>
   <button ion-button full class="btn-si">Sign up </button>
+=======
+  <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+  </ion-item>
+  <button ion-button full class="btn-si" (click)="signUp()">Sign Up </button>
+>>>>>>> d82b7b86fed6bae96897d33dfb756654fe39855e:client/src/pages/signup/signup.html
       <p class="p-si">Have already an account? <a href="" style="color: gray"> Sign in now</a></p>
 </div>
 </ion-content>

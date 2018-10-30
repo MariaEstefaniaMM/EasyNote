@@ -10,8 +10,14 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
+<<<<<<< HEAD:src/app/app.module.ts
 import { Camera } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
+=======
+import { NotesListPage } from './../pages/notes-list/notes-list';
+import { HttpClientModule } from '@angular/common/http';
+import { UsersProvider } from '../providers/users/users';
+>>>>>>> d82b7b86fed6bae96897d33dfb756654fe39855e:client/src/app/app.module.ts
 
 @NgModule({
   declarations: [
@@ -24,7 +30,8 @@ import { AlertController } from 'ionic-angular';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,8 +44,14 @@ import { AlertController } from 'ionic-angular';
   ],
   providers: [
     StatusBar,
+<<<<<<< HEAD:src/app/app.module.ts
     SplashScreen, Camera, AlertController,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+=======
+    SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UsersProvider
+>>>>>>> d82b7b86fed6bae96897d33dfb756654fe39855e:client/src/app/app.module.ts
   ]
 })
 export class AppModule {}
