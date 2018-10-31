@@ -1,9 +1,11 @@
 <ion-toolbar>
-  <button ion-button menuToggle>
+  <!-- <button ion-button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button>
   <ion-searchbar class="serachbar" showCancelButton="true" (ionCancel)="isSearchbarOpened=false"></ion-searchbar>
-</ion-toolbar>
+  -->
+<menu></menu>
+</ion-toolbar> 
 
 <ion-content padding>
   <ion-fab class="n-note">
@@ -13,6 +15,7 @@
   </ion-fab>
   <ion-item class="n-h1" text-center>
     <h1>Notes</h1>
+    <ion-searchbar class="serachbar" showCancelButton="true" (ionCancel)="isSearchbarOpened=false"></ion-searchbar>
   </ion-item>
 </ion-content>
 
