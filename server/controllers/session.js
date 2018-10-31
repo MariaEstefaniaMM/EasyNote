@@ -32,24 +32,36 @@ router.post('/login', auth.isLogged, function (req, res, next) {
 
 router.post('/signup',auth.isLogged,function(req, res, next) {
     console.log('postSignUp'+req.body.name+req.body.lastName+ req.body.username+ req.body.email+ req.body.password)
-    user.signup(req.body.name, req.body.lastName, req.body.username, req.body.email, req.body.password).then((data) => {
-        console.log('SignUp Successful')
-        res.status(200).send({
-            status: 200,
-            message:'SignUp Successful'
-        });
-        console.log(res)
-    }).catch((err) => {
-        console.log(error)
-      switch (err.constraint) {
-        case 'email':
-         res.send({status:401});
-        break;
-        default:
-         res.send({status:404});
-        break;
-      }
-    });
+    user.checkUser(req.body.username, req.body.email).then((data) => {
+        console.log(data)
+        if(data.length==0){
+            user.signup(req.body.name, req.body.lastName, req.body.username, req.body.email, req.body.password).then((data) => {
+                console.log('SignUp Successful')
+                res.status(200).send({
+                    status: 200,
+                    message:'SignUp Successful'
+                });
+                console.log(res)
+            }).catch((err) => {
+                console.log(error)
+            switch (err.constraint) {
+                case 'email':
+                res.send({status:401});
+                break;
+                default:
+                res.send({status:404});
+                break;
+            }
+            });
+        }else{
+            res.status(403).send({
+                status: 403,
+                message:'email or password already used'
+            });
+          }
+        }).catch((err) => {
+            res.send({status:403});
+          })
 });
 
 router.get('/logout', auth.isAuth, function (req, res) {

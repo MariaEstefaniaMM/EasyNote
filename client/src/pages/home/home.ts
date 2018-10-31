@@ -25,7 +25,7 @@ export class HomePage {
   goToNotes() {
     this.usersProvider.login(this.user).then((result) => {
       console.log(result);
-      this.navCtrl.push(NotesListPage);
+          this.navCtrl.setRoot(NotesListPage);
     }, (err) => {
       console.log(err);
     });
