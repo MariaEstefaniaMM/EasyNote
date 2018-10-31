@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { NoteComponent } from './note/note';
+import { MenuComponent } from './menu/menu';
+
 @NgModule({
-	declarations: [NoteComponent],
+	declarations: [MenuComponent],
 	imports: [],
-	exports: [NoteComponent]
+	exports: [MenuComponent]
 })
 export class ComponentsModule {}

@@ -1,40 +1,43 @@
-<!--
-  Generated template for the NotePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!-- <ion-header>
-  <ion-navbar>
-    <ion-buttons start>
-      <button ion-button>
-        <ion-icon name="contact"></ion-icon>
-      </button>
-    </ion-buttons>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Menu</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="doClick()">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header> -->
-
 <ion-toolbar>
-  <button ion-button menuToggle right>
+ <!-- <button ion-button menuToggle>
     <ion-icon name="menu"></ion-icon>
-  </button>
-  <ion-title>Notes</ion-title>
-  <ion-buttons end>
-    <button ion-button click="doClick()">
-        <ion-icon name="contact"></ion-icon>
-    </button>
-  </ion-buttons>
-</ion-toolbar>
+  </button> 
+  <ion-title>New Note</ion-title>  
+  -->
+  <menu></menu>
+</ion-toolbar> 
+
 
 <ion-content padding>
+  <p align="center"><img src="{{ myPhoto }}"></p>
+  <div class="inputs">
+  <ion-item>
+    <ion-input placeholder="Title" clearInput></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-textarea placeholder="Note" rows="15" maxLength="350" name="new-note" class="textarea-note"></ion-textarea>
+  </ion-item>
+  </div>
+
+  <ion-fab class="n-note">
+    <button ion-fab mini>
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
+    <ion-fab-list side="right">
+      <button ion-fab><ion-icon name="image"></ion-icon></button>
+      <button ion-fab><ion-icon name="create"></ion-icon></button>
+      <button ion-fab><ion-icon name="camera"></ion-icon></button>
+      <button ion-fab><ion-icon name="checkbox"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+  
+  <ion-fab class="fab-delete">
+    <button ion-fab mini (click)="deleteAlert()">
+      <ion-icon name="trash"></ion-icon>
+    </button>
+  </ion-fab>
 
 </ion-content>
+
+
+

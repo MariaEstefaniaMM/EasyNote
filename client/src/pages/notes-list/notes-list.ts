@@ -10,6 +10,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class NotesListPage {
 
   public isSearchbarOpened = false;
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
