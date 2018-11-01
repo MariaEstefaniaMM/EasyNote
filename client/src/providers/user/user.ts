@@ -4,9 +4,9 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class UsersProvider {
+export class UserProvider {
 
-  serverUrl:string = "http://localhost:3000";
+  serverUrl:string = "http://192.168.43.54:3000";
   public token:string;
 
   constructor(public http: HttpClient) {
@@ -16,7 +16,7 @@ export class UsersProvider {
   createUser(user:User){
     return new Promise((resolve, reject) => {
       this.http.post(this.serverUrl+'/session/signup', user)
-        .subscribe(res => {
+        .subscribe((res:any) => {
           resolve(res);
         }, (err) => {
           reject(err);
@@ -27,7 +27,7 @@ export class UsersProvider {
   login(user:User){
     return new Promise((resolve, reject) => {
       this.http.post(this.serverUrl+'/session/login', user)
-        .subscribe(res => {
+        .subscribe((res:any) => {
             this.token=res.token;
             console.log(this.token);
             resolve(res);

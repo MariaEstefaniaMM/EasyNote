@@ -15,7 +15,7 @@ import { NotePage } from './../pages/note/note';
 //import { Camera } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { UsersProvider } from '../providers/users/users';
+import { UserProvider } from '../providers/user/user';
 import { NoteProvider } from '../providers/note/note';
 
 @NgModule({
@@ -49,7 +49,7 @@ import { NoteProvider } from '../providers/note/note';
     //Camera, 
     AlertController,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsersProvider,
+    UserProvider,
     NoteProvider
   ]
 })
