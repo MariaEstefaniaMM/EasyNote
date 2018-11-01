@@ -21,7 +21,7 @@ module.exports.login = (username)=>{
 }
 
 module.exports.comparePassword = (candidatePassword, hash)=>{
-    console.log(candidatePassword+ hash)
+    console.log('Aqui'+candidatePassword+ hash)
     return new Promise((res,rej) => {
         let hashedPass = bcrypt.hashSync(hash, 10);
         bcrypt.compare(candidatePassword, hash, function(err, isMatch) {

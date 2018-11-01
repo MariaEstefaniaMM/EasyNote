@@ -1,14 +1,13 @@
 const express = require('express');
 const passport = require('passport');
-const auth = require('./../middlewares/isAuth')
+const auth = require('./../middlewares/isAuth');
+const jwt  = require('jsonwebtoken');
+let config = require('../helpers/config');
 let router = express.Router();
 let user = require('../helpers/user');
 
-router.get('/value', auth.isAuth, (req, res) => {
-    res.send(req.session.passport);
-});
 router.post('/login', auth.isLogged, function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
+    passport.authenticate('local',{session: false}, function (err, user, info) {
         if (err) {
             return next(err);
         }
@@ -17,14 +16,20 @@ router.post('/login', auth.isLogged, function (req, res, next) {
                 err: info
             });
         }
-        req.logIn(user, function (err) {
+        req.logIn(user,{session: false}, function (err) {
             if (err) {
+                console.log(err);
                 return res.status(500).send({
                     err: 'Could not log in user'
                 });
-            }
+            }       
+            
+            let jsonWebToken = jwt.sign(user,config.secret);
+            console.log(jsonWebToken);
             res.status(200).send({
-                status: 'Login successful!'
+                status: 200,
+                message:'Login Successful',
+                token:jsonWebToken
             });
         });
     })(req, res, next);

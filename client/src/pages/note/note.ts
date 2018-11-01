@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+//import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 
 @IonicPage()
@@ -13,12 +13,12 @@ export class NotePage {
 
   myPhoto: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
   }
 
   takePhoto(){
     console.log('camera');
-    const options: CameraOptions = {
+    /*const options: CameraOptions = {
       quality: 70,
       destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
@@ -30,7 +30,7 @@ export class NotePage {
       
     }, (err) =>{
       //handle error
-    });
+    });*/
   }
 
   deleteAlert(){
@@ -52,6 +52,10 @@ export class NotePage {
       ]
     });
     confirm.present();
+  }
+
+  createNote(){
+    
   }
 
   ionViewDidLoad() {
