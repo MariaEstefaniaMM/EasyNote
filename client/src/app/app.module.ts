@@ -7,13 +7,13 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
 import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersProvider } from '../providers/users/users';
@@ -49,6 +49,7 @@ import { UsersProvider } from '../providers/users/users';
     SplashScreen, 
     Camera, 
     AlertController,
+    ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UsersProvider
   ]

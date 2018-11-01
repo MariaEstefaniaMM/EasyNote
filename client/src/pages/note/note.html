@@ -1,24 +1,26 @@
-<ion-toolbar>
- <!-- <button ion-button menuToggle>
+<!--<ion-toolbar>
+  <button ion-button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button> 
   <ion-title>New Note</ion-title>  
-  -->
+  
   <menu></menu>
-</ion-toolbar> 
+</ion-toolbar> -->
 
+<ion-header>
+  <ion-navbar>
+    <ion-title>New Note</ion-title>
+  </ion-navbar>
+</ion-header>
 
 <ion-content padding>
-  <p align="center"><img [src]="myPhoto"></p>
   <div class="inputs">
   <ion-item>
     <ion-input placeholder="Title" clearInput ></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-textarea  placeholder="Note" rows="15" maxLength="350" name="new-note" class="textarea-note">
+    <ion-textarea  placeholder="Note" rows="34"  name="new-note" class="textarea-note">
     </ion-textarea>
-  </ion-item>
-  <button ion-button class="save-btn" (click)="createNote()">SAVE</button>
+    <p align="center"><img src="{{ myPhoto }}"></p>
   </div>
 
   <ion-fab class="n-note">
@@ -29,16 +31,11 @@
       <button ion-fab><ion-icon name="image"></ion-icon></button>
       <button ion-fab><ion-icon name="create"></ion-icon></button>
       <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
-      <button ion-fab><ion-icon name="checkbox"></ion-icon></button>
-    </ion-fab-list>
+      <button ion-fab (click)="deleteAlert()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-fab-list> 
   </ion-fab>
-  
-  <ion-fab class="fab-delete">
-    <button ion-fab mini (click)="deleteAlert()">
-      <ion-icon name="trash"></ion-icon>
-    </button>
-  </ion-fab>
-
 </ion-content>
 
 

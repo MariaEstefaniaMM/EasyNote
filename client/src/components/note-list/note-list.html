@@ -1,13 +1,13 @@
 <!-- Generated template for the NoteListComponent component -->
 <ion-list>
   <ion-item-sliding>
-    <ion-item>
+    <button ion-item (click)="goToNotes()">
       <ion-thumbnail item-start>
         <img src="/assets/imgs/logo.jpg">
       </ion-thumbnail>
       <h2>{{title}}</h2>
       <h5>{{description}}</h5>
-    </ion-item>
+    </button>
     <ion-item-options side="right">
       <button ion-button color="primary">
         <ion-icon name="create"></ion-icon>
