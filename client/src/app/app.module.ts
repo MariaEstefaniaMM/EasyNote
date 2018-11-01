@@ -1,3 +1,4 @@
+import { NoteListComponent } from './../components/note-list/note-list';
 import { MenuComponent } from './../components/menu/menu';
 import { NotesListPage } from './../pages/notes-list/notes-list';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,7 +26,8 @@ import { UsersProvider } from '../providers/users/users';
     SignupPage,
     NotePage,
     NotesListPage,
-    MenuComponent
+    MenuComponent,
+    NoteListComponent
   ],
   imports: [
     BrowserModule,

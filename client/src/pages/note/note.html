@@ -9,14 +9,16 @@
 
 
 <ion-content padding>
-  <p align="center"><img src="{{ myPhoto }}"></p>
+  <p align="center"><img [src]="myPhoto"></p>
   <div class="inputs">
   <ion-item>
-    <ion-input placeholder="Title" clearInput></ion-input>
+    <ion-input placeholder="Title" clearInput ></ion-input>
   </ion-item>
   <ion-item>
-    <ion-textarea placeholder="Note" rows="15" maxLength="350" name="new-note" class="textarea-note"></ion-textarea>
+    <ion-textarea  placeholder="Note" rows="15" maxLength="350" name="new-note" class="textarea-note">
+    </ion-textarea>
   </ion-item>
+  <button ion-button class="save-btn" (click)="createNote()">SAVE</button>
   </div>
 
   <ion-fab class="n-note">
@@ -26,7 +28,7 @@
     <ion-fab-list side="right">
       <button ion-fab><ion-icon name="image"></ion-icon></button>
       <button ion-fab><ion-icon name="create"></ion-icon></button>
-      <button ion-fab><ion-icon name="camera"></ion-icon></button>
+      <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
       <button ion-fab><ion-icon name="checkbox"></ion-icon></button>
     </ion-fab-list>
   </ion-fab>
