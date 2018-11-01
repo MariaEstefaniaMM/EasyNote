@@ -12,11 +12,16 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
+<<<<<<< HEAD
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
+=======
+//import { Camera } from '@ionic-native/camera';
+>>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
 import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { UsersProvider } from '../providers/users/users';
+import { UserProvider } from '../providers/user/user';
+import { NoteProvider } from '../providers/note/note';
 
 @NgModule({
   declarations: [
@@ -47,11 +52,12 @@ import { UsersProvider } from '../providers/users/users';
   providers: [
     StatusBar,
     SplashScreen, 
-    Camera, 
+    //Camera, 
     AlertController,
     ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsersProvider
+    UserProvider,
+    NoteProvider
   ]
 })
 export class AppModule {}

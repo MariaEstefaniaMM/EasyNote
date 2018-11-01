@@ -1,7 +1,7 @@
 import { NotesListPage } from './../notes-list/notes-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+//import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
 import { ImagePicker } from '@ionic-native/image-picker';
 
@@ -18,11 +18,15 @@ export class NotePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController, private imagePicker: ImagePicker) {
 
+<<<<<<< HEAD
+=======
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+>>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
   }
 
   takePhoto() {
     console.log('camera');
-    const options: CameraOptions = {
+    /*const options: CameraOptions = {
       quality: 70,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -34,8 +38,12 @@ export class NotePage {
     console.log('photo'); 
     }, (error) =>{
       //handle error
+<<<<<<< HEAD
       console.log(error);
     });
+=======
+    });*/
+>>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
   }
 
   /*takeImage(){
@@ -67,8 +75,13 @@ export class NotePage {
     confirm.present();
   }
 
+<<<<<<< HEAD
   createNote() {
     this.navCtrl.push(NotesListPage);
+=======
+  createNote(){
+    
+>>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
   }
 
   ionViewDidLoad() {

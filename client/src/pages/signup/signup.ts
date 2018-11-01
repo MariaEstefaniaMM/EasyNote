@@ -29,7 +29,7 @@ export class SignupPage {
   signUp() {
     this.usersProvider.createUser(this.user).then((result) => {
       console.log(result);
-      this.navCtrl.push(NotesListPage);
+        this.navCtrl.push(NotesListPage);
     }, (err) => {
       console.log(err);
     });
