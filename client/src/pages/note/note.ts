@@ -1,7 +1,9 @@
+import { NotesListPage } from './../notes-list/notes-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
+//import { ImagePicker } from '@ionic-native/image-picker';
 
 @IonicPage()
 @Component({
@@ -11,27 +13,38 @@ import { AlertController } from 'ionic-angular';
 
 export class NotePage {
 
-  myPhoto: any;
+  myPhoto: any; //create a variable to save picture path/source
+  //note: {id: null, title: null, description: null};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController) {
   }
-
-  takePhoto(){
+  
+  takePhoto() {
     console.log('camera');
-    /*const options: CameraOptions = {
+    const options: CameraOptions = {
       quality: 70,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
 
     this.camera.getPicture(options).then((imageData) =>{
-      this.myPhoto = 'data:image/jpeg;base64' + imageData;
-      
-    }, (err) =>{
+    this.myPhoto = 'data:image/jpeg;base64' + imageData;
+    console.log('photo'); 
+    }, (error) =>{
       //handle error
-    });*/
+      console.log(error);;
+    });
+      
   }
+
+  /*takeImage(){
+    this.imagePicker.getPictures(options).then((result) =>{
+      for (var i=0; i< results.length; i++){
+        console.log('image URI:' + results[i]);
+      }
+    }, (err) =>{});
+  } */
 
   deleteAlert(){
     const confirm = this.alertCtrl.create({
@@ -53,9 +66,9 @@ export class NotePage {
     });
     confirm.present();
   }
-
-  createNote(){
     
+  createNote() {
+    this.navCtrl.push(NotesListPage);
   }
 
   ionViewDidLoad() {

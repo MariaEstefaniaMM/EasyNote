@@ -3,7 +3,6 @@ page-note {
         background: black;
     }
     .textarea-note{
-        height: 260px;
         resize: none;
     }
     .tools{
@@ -16,11 +15,17 @@ page-note {
     }
     .n-note{
         position: absolute;
-        transform: translate(10%, 1020%);
+        transform: translate(10%, 942%);
     }
     .fab-delete{
         position: absolute;
         transform: translate(510%, 660%);
+    }
+    .save-btn{
+        background-color: black;
+        color: white;
+        transform: translate(19%, 12%);
+        width: 207px;
     }
 }
 

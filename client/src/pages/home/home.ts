@@ -4,6 +4,7 @@ import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { User } from '../../models/user';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -19,7 +20,7 @@ export class HomePage {
     password:""
   }
 
-  constructor(public navCtrl: NavController, private usersProvider: UsersProvider) {
+  constructor(public navCtrl: NavController, private usersProvider: UsersProvider, public alertCtrl: AlertController) {
   }
 
   goToListNotes() {
@@ -32,6 +33,13 @@ export class HomePage {
   }
   goToSignUp(){
     this.navCtrl.push(SignupPage);
+  }
+
+  missingField(){
+    const confirm = this.alertCtrl.create({
+      title: 'Campos Incompletos',
+    });
+    confirm.present();
   }
 
 }
