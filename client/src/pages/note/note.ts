@@ -1,9 +1,11 @@
+import { NoteProvider } from './../../providers/note/note';
+import { Note } from './../../models/note';
 import { NotesListPage } from './../notes-list/notes-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AlertController } from 'ionic-angular';
-//import { ImagePicker } from '@ionic-native/image-picker';
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @IonicPage()
 @Component({
@@ -13,10 +15,20 @@ import { AlertController } from 'ionic-angular';
 
 export class NotePage {
 
-  myPhoto: any; //create a variable to save picture path/source
-  //note: {id: null, title: null, description: null};
+  myPhoto: any; 
+  note:Note;
+  newNote: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController,
+              private noteProvider:NoteProvider) {
+      this.note=navParams.data; 
+      console.log(this.note);
+  }
+
+  ionViewDidLoad() {
+    if (Object.keys(this.note).length === 0)
+      this.newNote=true;
+    console.log('ionViewDidLoad NotePage');
   }
   
   takePhoto() {
@@ -48,7 +60,7 @@ export class NotePage {
 
   deleteAlert(){
     const confirm = this.alertCtrl.create({
-      title: 'Are sure you want to delete this note?',
+      title: 'Are you sure you want to delete this note?',
       buttons: [
         {
           text: 'CANCEL',
@@ -59,7 +71,25 @@ export class NotePage {
         {
           text: 'DELETE',
           handler: ()=>{
-            console.log('SAVE');
+            this.noteProvider.deleteNote(this.note.note_id).subscribe((res:any) => {
+              if (res.status==200){
+                console.log(res);
+                this.navCtrl.setRoot(NotesListPage);
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+            }, (err) => {
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: JSON.stringify(err),
+                buttons: ['OK']
+              })).present();          
+            }
+            );
           }
         }
       ]
@@ -67,12 +97,38 @@ export class NotePage {
     confirm.present();
   }
     
-  createNote() {
-    this.navCtrl.push(NotesListPage);
+  ionViewCanLeave(){
+    console.log("willLeave");
+    if (Object.keys(this.note).length !== 0)
+        if (this.newNote){
+              this.createNote();
+              return true;
+        }else{
+            
+        }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotePage');
+  createNote(){
+    this.noteProvider.createNote(this.note).subscribe((res:any) => {
+      if (res.status==200){
+          console.log(res);
+          this.navCtrl.setRoot(NotesListPage);
+      }else{
+        (this.alertCtrl.create({
+          title: 'Error',
+          subTitle: res.message,
+          buttons: ['OK']
+        })).present();
+      }
+    },
+    (err) => {
+      (this.alertCtrl.create({
+        title: 'Error',
+        subTitle: JSON.stringify(err),
+        buttons: ['OK']
+      })).present();          
+    }
+    );
   }
 
 }

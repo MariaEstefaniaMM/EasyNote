@@ -23,43 +23,32 @@ router.get('/getUserNotes',isAuth, (req,res)=>{
           res.send({status:403});
         } else {
           console.log(data);
-          res.status(200).send({status:200, notes:data});
+          res.send({status:200, notes:data});
         }
         }).catch((err) => {
           console.log(err);
-          res.send({status:403})
+          res.send({
+            status:403,
+            message:'Could not get notes'
+          })
         }) 
 });
-/*
-router.get('/getNote',isAuth, (req,res)=>{ 
-    product.getNote(req.param.note_id).then((data) => {
-      if(data.length == 0){
-        res.send({status:403});
-      } else {
-        res.status(200).send({status:200, notes:data});
-      }
-      }).catch((err) => {
-        console.log(err);
-        res.send({status:403})
-      })
-});*/
 
 router.post('/createNote',isAuth,upload.single('file'),(req,res)=>{
-    //if (req.user !== undefined) {
-      console.log(req.file.path)
-      //console.log(req)
-      console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id)
+      console.log("createNote", req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
+      console.log(req.file.path);
+      console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
       note.createNote(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id).then((data) => {
         res.send({
           data:data,
           status:200});
       }).catch((err) => {
         console.log(err)
-        res.send({status:403});
+        res.send({
+          status:403,
+          message:'Note creation Failed'
+        });
       })
-    //} else {
-      //res.send({status:500});
-    //}
 });
 
 router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
@@ -73,7 +62,7 @@ router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
         status:200});
     }).catch((err) => {
       console.log(err)
-      res.send({status:403});
+      res.send({status:403, message:'Could not get notes'});
     })
   //} else {
     //res.send({status:500});
@@ -89,7 +78,7 @@ router.delete('/deleteNote',isAuth, (req, res) => {
         res.send({status:200});
       }).catch((err) => {
         console.log(err);
-        res.send({status:403})
+        res.send({status:403, message:'Delete note failed'})
       })
   //} else {
     //res.send({status:500})

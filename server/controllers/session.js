@@ -12,23 +12,25 @@ router.post('/login', auth.isLogged, function (req, res, next) {
             return next(err);
         }
         if (!user) {
-            return res.status(401).send({
-                err: info
+            return res.send({
+                status: 401,
+                message: 'User not found, please sign up.',
             });
         }
         req.logIn(user,{session: false}, function (err) {
             if (err) {
                 console.log(err);
-                return res.status(500).send({
-                    err: 'Could not log in user'
+                return res.send({
+                    status: 500,
+                    message: 'Could not log in user.'
                 });
             }       
             
             let jsonWebToken = jwt.sign(user,config.secret);
             console.log(jsonWebToken);
-            res.status(200).send({
+            res.send({
                 status: 200,
-                message:'Login Successful',
+                message:'Login Successful.',
                 token:jsonWebToken
             });
         });
@@ -41,31 +43,29 @@ router.post('/signup',auth.isLogged,function(req, res, next) {
         console.log(data)
         if(data.length==0){
             user.signup(req.body.name, req.body.lastName, req.body.username, req.body.email, req.body.password).then((data) => {
-                console.log('SignUp Successful')
-                res.status(200).send({
+                console.log('SignUp Successful');
+                let jsonWebToken = jwt.sign(user,config.secret);
+                console.log(jsonWebToken);
+                res.send({
                     status: 200,
-                    message:'SignUp Successful'
+                    message:'Sign Up Successful',
+                    token:jsonWebToken
                 });
-                console.log(res)
             }).catch((err) => {
-                console.log(error)
-            switch (err.constraint) {
-                case 'email':
-                res.send({status:401});
-                break;
-                default:
-                res.send({status:404});
-                break;
-            }
+                console.log(err)
             });
         }else{
-            res.status(403).send({
+            res.send({
                 status: 403,
-                message:'email or password already used'
+                message:'Username or email already used.'
             });
           }
         }).catch((err) => {
-            res.send({status:403});
+            console.log(err);
+            res.send({
+                status:403,
+                message:'Sign up failed',
+            });
           })
 });
 

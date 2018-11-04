@@ -1,3 +1,4 @@
+import { NativeStorage } from '@ionic-native/native-storage';
 import { NoteListComponent } from './../components/note-list/note-list';
 import { MenuComponent } from './../components/menu/menu';
 import { NotesListPage } from './../pages/notes-list/notes-list';
@@ -9,21 +10,20 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
 import { Camera } from '@ionic-native/camera';
-//import { ImagePicker } from '@ionic-native/image-picker';
+import { ImagePicker } from '@ionic-native/image-picker';
 import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProvider } from '../providers/user/user';
 import { NoteProvider } from '../providers/note/note';
+import { TokenProvider } from '../providers/token/token';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
     NotesListPage,
@@ -39,7 +39,6 @@ import { NoteProvider } from '../providers/note/note';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
     NotesListPage,
@@ -50,10 +49,12 @@ import { NoteProvider } from '../providers/note/note';
     SplashScreen, 
     Camera, 
     AlertController,
-    //ImagePicker,
+    NativeStorage,
+    ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
-    NoteProvider
+    NoteProvider,
+    TokenProvider
   ]
 })
 export class AppModule {}

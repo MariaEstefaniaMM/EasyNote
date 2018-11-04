@@ -3,6 +3,7 @@ const noteQueries = require('./../helpers/queries').note;
 
 module.exports.createNote = (note_title, note_content, note_image_url, user_id)=>{
     return new Promise((res,rej)=>{
+        console.log('/createNoteHelper');
           db.connect().then((obj)=>{
               obj.none(noteQueries.createNote,[note_title, note_content, note_image_url, user_id]).then((data)=>{
                   res(data);
