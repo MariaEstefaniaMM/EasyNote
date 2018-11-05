@@ -18,11 +18,8 @@ import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProvider } from '../providers/user/user';
 import { NoteProvider } from '../providers/note/note';
-<<<<<<< HEAD
 import { CameraProvider } from '../providers/camera/camera';
-=======
 import { TokenProvider } from '../providers/token/token';
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
 
 @NgModule({
   declarations: [
@@ -58,11 +55,8 @@ import { TokenProvider } from '../providers/token/token';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     NoteProvider,
-<<<<<<< HEAD
-    CameraProvider
-=======
+    CameraProvider,
     TokenProvider
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
   ]
 })
 export class AppModule {}

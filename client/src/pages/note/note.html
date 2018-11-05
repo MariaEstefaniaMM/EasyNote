@@ -8,23 +8,18 @@
 <ion-content padding>
   <div class="inputs">
     <div class="div-img" align="center">
-      <img class="img-camera" *ngIf="!uploaded"> 
       <img class="img-camera" *ngIf="uploaded" src="{{ imageUrl }}"> 
     </div>
   <ion-item>
-<<<<<<< HEAD
-    <ion-input placeholder="Title" clearInput class="i-title" ></ion-input>
-  </ion-item>
-    <ion-textarea  placeholder="Description" rows="34"  name="new-note" class="textarea-note">
-    </ion-textarea>
-=======
     <ion-input placeholder="Title" clearInput [(ngModel)]="note.note_title"></ion-input>
   </ion-item>
-  <ion-textarea placeholder="Note" rows="34"  name="new-note" class="textarea-note" [(ngModel)]="note.note_content">
-    </ion-textarea>
-    <button ion-fab (click)="createNote()"></button>
-    <p align="center"><img src="{{ myPhoto }}"></p>
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
+  <ion-textarea placeholder="Note" rows="34"  name="new-note" class="textarea-note" [(ngModel)]="note.note_content"> 
+    </ion-textarea> 
+  <!--  <div class="editable" contenteditable="true">
+       <ion-list class="ckeck" *ngIf="addCheckbox">
+          <ion-checkbox></ion-checkbox>
+       </ion-list>
+    </div>-->
   </div>
 
   <ion-fab class="n-note">
@@ -35,6 +30,7 @@
       <button ion-fab (click)="takeImage()"><ion-icon name="image"></ion-icon></button>
       <button ion-fab><ion-icon name="create"></ion-icon></button>
       <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
+     <!-- <button ion-fab (click)="addCheckboxs()"><ion-icon name="checkbox"></ion-icon></button> -->
       <button ion-fab *ngIf="!newNote" (click)="deleteAlert()">
         <ion-icon name="trash"></ion-icon>
       </button>

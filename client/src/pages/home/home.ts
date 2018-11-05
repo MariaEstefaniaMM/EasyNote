@@ -4,13 +4,8 @@ import { NotesListPage } from './../notes-list/notes-list';
 import { UserProvider } from './../../providers/user/user';
 import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
-<<<<<<< HEAD
-import { NavController } from 'ionic-angular';
-import { User } from '../../models/user';
-import { AlertController, ToastController } from 'ionic-angular';
-=======
-import { NavController, AlertController } from 'ionic-angular';
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
+import { NavController, AlertController, ToastController } from 'ionic-angular';
+//import { User } from '../../models/user';
 
 @Component({
   selector: 'page-home',
@@ -23,30 +18,12 @@ export class HomePage {
     password:""
   }
 
-<<<<<<< HEAD
-  //passwordType: string ='password';
-  //passwordIcon: string='eye-off';
-
-  constructor(public navCtrl: NavController, private usersProvider: UserProvider, public alertCtrl: AlertController, public toastCtrl: ToastController) {
-  }
-
-  goToListNotes() {
-    this.usersProvider.login(this.user).then((result) => {
-      console.log(result);
-          this.navCtrl.setRoot(NotesListPage);
-          this.presentToast();
-    }, (err) => {
-      console.log(err);
-      this.presentToast_error();
-    });
-=======
   constructor(public navCtrl: NavController, private userProvider: UserProvider, public alertCtrl: AlertController,
-              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider) {
+              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider, public toastCtrl: ToastController) {
   }
 
   ionViewWillEnter() {
     console.log("HomePage")
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
   }
 
   goToListNotes() {
@@ -62,29 +39,31 @@ export class HomePage {
         this.tokenProvider.token=res.token;
         console.log(this.tokenProvider.token, res.token);
         this.navCtrl.setRoot(NotesListPage);
+        this.presentToast();
     } else {
-      (this.alertCtrl.create({
+      console.log('err')
+      /*(this.alertCtrl.create({
         title: 'Error',
         subTitle: res.message,
         buttons: ['OK']
-      })).present();
+      })).present(); */
     }
-    },
+  },
     (err) => {
-      (this.alertCtrl.create({
+      console.log(err)
+     /* (this.alertCtrl.create({
         title: 'Error',
         subTitle: JSON.stringify(err),
         buttons: ['OK']
-      })).present();          
+      })).present(); */      
     }
-    );
-}
+    ); 
+  }
 
   goToSignUp(){
     this.navCtrl.push(SignupPage);
   }
 
-<<<<<<< HEAD
   missingField(){
     const confirm = this.alertCtrl.create({
       title: 'Campos Incompletos',
@@ -95,7 +74,7 @@ export class HomePage {
   presentToast(){
     let toast = this.toastCtrl.create({
       message: 'Usted ha iniciado sesion',
-      duration: 3000,
+      duration: 4000,
       position: 'bottom'
     });
 
@@ -118,6 +97,4 @@ export class HomePage {
     toast.present();
   }
  
-=======
->>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
 }

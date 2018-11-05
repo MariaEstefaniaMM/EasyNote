@@ -47,6 +47,19 @@ page-note {
         position: relative;
         left: -18px;
     }
+    .editable{
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        font: medium -moz-fixed;
+        font: -webkit-small-control;
+        width: 330px;
+        height: 430px;
+        position: relative;
+        top: 10px;
+        left: -5px;
+        resize: none;
+        padding: 6px;
+    }
 }
 
 

@@ -15,22 +15,19 @@ export class MyApp {
 
   @ViewChild(Nav) nav: Nav;
 
-  text: string = '';
-
   rootPage:any = HomePage;
 
-  pages: Array<{title: string; component: any}>;
+  pages: Array<{title: string; component: any, icon: string}>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private tokenProvider: TokenProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Notes', component: NotesListPage },
-      { title: 'New Note', component: NotePage },
-      { title: 'Logout', component: HomePage }
+      { title: 'Notes', component: NotesListPage, icon: 'home' },
+      { title: 'New Note', component: NotePage, icon: 'create' },
+      { title: 'Logout', component: HomePage, icon: 'log-out' }
     ];
-
   }
 
   initializeApp() {
@@ -47,11 +44,7 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+    this.nav.setRoot(page.component);
   }
-
-  /*rightMenuClick(text) {
-    this.text = text;
-  } */
 }
 
