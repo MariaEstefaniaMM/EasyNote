@@ -10,6 +10,7 @@ app.use('/views', express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(methodOverride());
 app.use(cors());
+app.use('*',cors());
 app.use(express.urlencoded({extended:false}));
 app.use(jwt({
     secret: config.secret
@@ -21,7 +22,6 @@ app.use(passport.session());
 app.use('/',require('./controllers'));
 
 app.get('/', function (req, res) {
-    console.log("hi");
     res.redirect('views/index.html');
 });
 

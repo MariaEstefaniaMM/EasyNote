@@ -69,7 +69,7 @@ router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
   //}
 });
 
-router.delete('/deleteNote',isAuth, (req, res) => {
+router.post('/deleteNote',isAuth, (req, res) => {
   console.log(req.body.note_id)
   //console.log(req)
   //if (req.user !== undefined) {

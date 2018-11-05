@@ -101,11 +101,32 @@ export class NotePage {
     console.log("willLeave");
     if (Object.keys(this.note).length !== 0)
         if (this.newNote){
-              this.createNote();
-              return true;
+          console.log("newNote");
+          this.noteProvider.createNote(this.note).subscribe((res:any) => {
+            if (res.status==200){
+                console.log(res);
+                return true;
+                //this.navCtrl.setRoot(NotesListPage);
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+          },
+          (err) => {
+            (this.alertCtrl.create({
+              title: 'Error',
+              subTitle: JSON.stringify(err),
+              buttons: ['OK']
+            })).present();          
+          }
+          );
         }else{
             
         }
+      return false;
   }
 
   createNote(){

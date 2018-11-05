@@ -28,7 +28,8 @@ export class NoteProvider {
   }
 
   deleteNote(note_id){
-      return this.http.put(this.serverUrl+'/note/deleteNote', note_id, {headers:this.headers})
+    console.log("deleteNote", note_id);
+      return this.http.post(this.serverUrl+'/note/deleteNote', note_id, {headers:this.headers})
   }
 
   getUserNotes = () =>{
