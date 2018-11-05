@@ -14,13 +14,15 @@ export class NotesListPage {
   public isSearchbarOpened = false;
   
   notes:Note [];
+  myInput:string;
+  searchNotes:Note[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private noteProvider: NoteProvider,
               private alertCtrl: AlertController) {
                 console.log('constructor');
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter(){
     console.log('ionViewWillEnter NotesListPage');
     this.noteProvider.getUserNotes().subscribe((res:any) => {
       if (res.status==200){
@@ -46,4 +48,11 @@ export class NotesListPage {
       this.navCtrl.push(NotePage, {});
       console.log("aqui");
     }
+    
+    onInput(){
+        this.searchNotes = this.notes.filter((note) => {
+          return note.note_title.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
+      }); 
+    }
+
 }

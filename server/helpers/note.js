@@ -39,24 +39,6 @@ module.exports.getUserNotes = (user_id)=>{
         });
     });
 }
-/*
-module.exports.getNote = (note_id)=>{
-    return new Promise((res,rej)=>{
-          db.connect().then((obj)=>{
-              obj.any(noteQueries.getNote,[note_id]).then((data)=>{
-                  res(data);
-                  obj.done();
-              }).catch((error)=>{
-                  console.log(error);
-                  rej(error);
-                  obj.done();
-              });
-          }).catch((error)=>{
-              console.log(error);
-              rej(error);
-        });
-    });
-}*/
 
 module.exports.deleteNote = (note_id)=>{
 	return new Promise((res,rej)=>{
@@ -75,10 +57,11 @@ module.exports.deleteNote = (note_id)=>{
 	});
 }
 
-module.exports.updateNote = (note_id)=>{
+module.exports.updateNote = (note_id, note_title, note_content,note_image_url, user_id)=>{
 	return new Promise((res,rej)=>{
 		db.connect().then((obj)=>{
-			obj.none(noteQueries.updateNote, [note_id, note_title, note_content, note_image_url, user_id]).then((data)=>{
+            console.log(noteQueries.updateNote);
+			obj.none(noteQueries.updateNote, [note_id, note_title, note_content, note_image_url]).then((data)=>{
 				res(data);
 				obj.done();
 			}).catch((error)=>{

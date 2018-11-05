@@ -19,4 +19,8 @@ export class UserProvider {
   login(user){
       return this.http.post(this.serverUrl+'/session/login', user)
   }
+
+  logout(user){
+      return this.http.get(this.serverUrl+'/session/logout', user)
+  }
 }

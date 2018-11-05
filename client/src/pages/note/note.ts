@@ -50,14 +50,6 @@ export class NotePage {
       
   }
 
-  /*takeImage(){
-    this.imagePicker.getPictures(options).then((result) =>{
-      for (var i=0; i< results.length; i++){
-        console.log('image URI:' + results[i]);
-      }
-    }, (err) =>{});
-  } */
-
   deleteAlert(){
     const confirm = this.alertCtrl.create({
       title: 'Are you sure you want to delete this note?',
@@ -71,7 +63,7 @@ export class NotePage {
         {
           text: 'DELETE',
           handler: ()=>{
-            this.noteProvider.deleteNote(this.note.note_id).subscribe((res:any) => {
+            this.noteProvider.deleteNote(this.note).subscribe((res:any) => {
               if (res.status==200){
                 console.log(res);
                 this.navCtrl.setRoot(NotesListPage);
@@ -99,14 +91,12 @@ export class NotePage {
     
   ionViewCanLeave(){
     console.log("willLeave");
-    if (Object.keys(this.note).length !== 0)
+    if (Object.keys(this.note).length !== 0){
         if (this.newNote){
-          console.log("newNote");
           this.noteProvider.createNote(this.note).subscribe((res:any) => {
             if (res.status==200){
                 console.log(res);
                 return true;
-                //this.navCtrl.setRoot(NotesListPage);
             }else{
               (this.alertCtrl.create({
                 title: 'Error',
@@ -124,16 +114,35 @@ export class NotePage {
           }
           );
         }else{
-            
-        }
-      return false;
+          console.log("updateNote");
+          this.noteProvider.updateNote(this.note).subscribe((res:any) => {
+            if (res.status==200){
+                console.log(res);
+                return true;
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+          },
+          (err) => {
+            (this.alertCtrl.create({
+              title: 'Error',
+              subTitle: JSON.stringify(err),
+              buttons: ['OK']
+            })).present();
+        });
+      }
+    }else{return true;}     
+    return true;
   }
 
   createNote(){
     this.noteProvider.createNote(this.note).subscribe((res:any) => {
       if (res.status==200){
           console.log(res);
-          this.navCtrl.setRoot(NotesListPage);
       }else{
         (this.alertCtrl.create({
           title: 'Error',

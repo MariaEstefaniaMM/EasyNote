@@ -8,11 +8,11 @@
       <h5>{{note.note_content}}</h5>
     </button>
     <ion-item-options side="right">
-      <button ion-button color="primary">
+      <button ion-button color="primary" (click)="goToNotes(note)">
         <ion-icon name="create"></ion-icon>
         edit
       </button>
-      <button ion-button color="danger">
+      <button ion-button color="danger" (click)="deleteAlert(note)">
         <ion-icon name="trash"></ion-icon>
         delete
       </button>

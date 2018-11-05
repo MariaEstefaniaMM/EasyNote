@@ -15,21 +15,19 @@ export class NoteProvider {
 
   headers = new HttpHeaders().set("Authorization", "Bearer "+ this.tokenProvider.token);
 
-  createNote(note){
+  createNote(note:Note){
       console.log("createNote", note);
       return this.http.post(this.serverUrl+'/note/createNote', note, {headers:this.headers})
   }
 
   updateNote(note:Note){
-      this.http.put(this.serverUrl+'/note/updateNote', note, {headers:this.headers})
-        .subscribe((res:any) => {
-          return res;
-    });
+    console.log("updateNote");
+      return this.http.put(this.serverUrl+'/note/updateNote', note, {headers:this.headers});
   }
 
-  deleteNote(note_id){
-    console.log("deleteNote", note_id);
-      return this.http.post(this.serverUrl+'/note/deleteNote', note_id, {headers:this.headers})
+  deleteNote(note:Note){
+    console.log("deleteNote", note);
+      return this.http.post(this.serverUrl+'/note/deleteNote', note, {headers:this.headers})
   }
 
   getUserNotes = () =>{

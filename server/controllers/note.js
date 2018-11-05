@@ -19,12 +19,7 @@ let router = express.Router();
 router.get('/getUserNotes',isAuth, (req,res)=>{
       console.log('/getUserNotes');
       note.getUserNotes(req.user.user_id).then((data) => {
-        if(data.length == 0){
-          res.send({status:403});
-        } else {
-          console.log(data);
           res.send({status:200, notes:data});
-        }
         }).catch((err) => {
           console.log(err);
           res.send({
@@ -35,10 +30,10 @@ router.get('/getUserNotes',isAuth, (req,res)=>{
 });
 
 router.post('/createNote',isAuth,upload.single('file'),(req,res)=>{
-      console.log("createNote", req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
-      console.log(req.file.path);
-      console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
-      note.createNote(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id).then((data) => {
+      console.log("createNote", req.body.note_title+ req.body.note_content+ req.user.user_id);
+      //console.log(req.file.path);
+      //console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
+      note.createNote(req.body.note_title, req.body.note_content,null, req.user.user_id).then((data) => {
         res.send({
           data:data,
           status:200});
@@ -53,10 +48,10 @@ router.post('/createNote',isAuth,upload.single('file'),(req,res)=>{
 
 router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
   //if (req.user !== undefined) {
-    console.log(req.file.path);
+    //console.log(req.file.path);
     //console.log(req)
-    console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id)
-    note.updateNote(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id).then((data) => {
+    console.log(req.body.note_title+ req.body.note_content+ req.user.user_id)
+    note.updateNote(req.body.note_id, req.body.note_title, req.body.note_content,null).then((data) => {
       res.send({
         data:data,
         status:200});

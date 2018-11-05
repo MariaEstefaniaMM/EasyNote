@@ -70,10 +70,11 @@ router.post('/signup',auth.isLogged,function(req, res, next) {
 });
 
 router.get('/logout', auth.isAuth, function (req, res) {
-    req.logout();
     res.status(200).send({
         status: 'Bye!'
     });
 });
+
+module.exports = router;
 
 module.exports = router;

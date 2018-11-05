@@ -26,6 +26,7 @@ app.get('/', function (req, res) {
 });
 
 app.use(function (err, req, res, next) {
+  console.log(err);
     if (err.name === 'UnauthorizedError') {//token no es valido o hubo un error en la firma o token no existe
       res.status(401).send({
         message: 'invalid token...',
