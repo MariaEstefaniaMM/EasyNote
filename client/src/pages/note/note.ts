@@ -1,3 +1,5 @@
+import { NoteProvider } from './../../providers/note/note';
+import { Note } from './../../models/note';
 import { NotesListPage } from './../notes-list/notes-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -13,13 +15,22 @@ import { ImagePicker } from '@ionic-native/image-picker';
 
 export class NotePage {
 
-  myPhoto: any; //create a variable to save picture path/source
-  //note: {id: null, title: null, description: null};
+  myPhoto: any; 
+  note:Note;
+  newNote: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController, private imagePicker: ImagePicker) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController,
+              private noteProvider:NoteProvider) {
+      this.note=navParams.data; 
+      console.log(this.note);
   }
 
+  ionViewDidLoad() {
+    if (Object.keys(this.note).length === 0)
+      this.newNote=true;
+    console.log('ionViewDidLoad NotePage');
+  }
+  
   takePhoto() {
     console.log('camera');
     const options: CameraOptions = {
@@ -34,21 +45,14 @@ export class NotePage {
     console.log('photo'); 
     }, (error) =>{
       //handle error
-      console.log(error);
+      console.log(error);;
     });
+      
   }
-
-  /*takeImage(){
-    this.imagePicker.getPictures(options).then((result) =>{
-      for (var i=0; i< results.length; i++){
-        console.log('image URI:' + results[i]);
-      }
-    }, (err) =>{});
-  } */
 
   deleteAlert(){
     const confirm = this.alertCtrl.create({
-      title: 'Are sure you want to delete this note?',
+      title: 'Are you sure you want to delete this note?',
       buttons: [
         {
           text: 'CANCEL',
@@ -59,20 +63,102 @@ export class NotePage {
         {
           text: 'DELETE',
           handler: ()=>{
-            console.log('SAVE');
+            this.noteProvider.deleteNote(this.note).subscribe((res:any) => {
+              if (res.status==200){
+                console.log(res);
+                this.navCtrl.setRoot(NotesListPage);
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+            }, (err) => {
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: JSON.stringify(err),
+                buttons: ['OK']
+              })).present();          
+            }
+            );
           }
         }
       ]
     });
     confirm.present();
   }
-
-  createNote() {
-    this.navCtrl.push(NotesListPage);
+    
+  ionViewCanLeave(){
+    console.log("willLeave");
+    if (Object.keys(this.note).length !== 0){
+        if (this.newNote){
+          this.noteProvider.createNote(this.note).subscribe((res:any) => {
+            if (res.status==200){
+                console.log(res);
+                return true;
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+          },
+          (err) => {
+            (this.alertCtrl.create({
+              title: 'Error',
+              subTitle: JSON.stringify(err),
+              buttons: ['OK']
+            })).present();          
+          }
+          );
+        }else{
+          console.log("updateNote");
+          this.noteProvider.updateNote(this.note).subscribe((res:any) => {
+            if (res.status==200){
+                console.log(res);
+                return true;
+            }else{
+              (this.alertCtrl.create({
+                title: 'Error',
+                subTitle: res.message,
+                buttons: ['OK']
+              })).present();
+            }
+          },
+          (err) => {
+            (this.alertCtrl.create({
+              title: 'Error',
+              subTitle: JSON.stringify(err),
+              buttons: ['OK']
+            })).present();
+        });
+      }
+    }else{return true;}     
+    return true;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NotePage');
+  createNote(){
+    this.noteProvider.createNote(this.note).subscribe((res:any) => {
+      if (res.status==200){
+          console.log(res);
+      }else{
+        (this.alertCtrl.create({
+          title: 'Error',
+          subTitle: res.message,
+          buttons: ['OK']
+        })).present();
+      }
+    },
+    (err) => {
+      (this.alertCtrl.create({
+        title: 'Error',
+        subTitle: JSON.stringify(err),
+        buttons: ['OK']
+      })).present();          
+    }
+    );
   }
 
 }

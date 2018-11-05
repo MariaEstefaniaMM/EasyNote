@@ -5,7 +5,7 @@ const userQueries = require('./../helpers/queries').user;
 module.exports.login = (username)=>{
     return new Promise((res,rej)=>{ 
         db.connect().then((obj)=>{
-            obj.one(userQueries.getUsername,[username]).then((data)=>{
+            obj.one(userQueries.getUser,[username]).then((data)=>{
                 res(data);
                 obj.done();                
             }).catch((error)=>{
@@ -21,7 +21,7 @@ module.exports.login = (username)=>{
 }
 
 module.exports.comparePassword = (candidatePassword, hash)=>{
-    console.log(candidatePassword+ hash)
+    console.log('Aqui'+candidatePassword+ hash)
     return new Promise((res,rej) => {
         let hashedPass = bcrypt.hashSync(hash, 10);
         bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
@@ -51,4 +51,22 @@ module.exports.signup = (name, lastname, username, email, password)=>{
                   rej(error);
               });
           });    
+}
+
+module.exports.checkUser = (username, email)=>{
+    return new Promise((res,rej)=>{ 
+        db.connect().then((obj)=>{
+            obj.one(userQueries.checkUser,[username, email]).then((data)=>{
+                res(data);
+                obj.done();                
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();    
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
 }

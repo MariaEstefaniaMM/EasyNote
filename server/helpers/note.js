@@ -3,6 +3,7 @@ const noteQueries = require('./../helpers/queries').note;
 
 module.exports.createNote = (note_title, note_content, note_image_url, user_id)=>{
     return new Promise((res,rej)=>{
+        console.log('/createNoteHelper');
           db.connect().then((obj)=>{
               obj.none(noteQueries.createNote,[note_title, note_content, note_image_url, user_id]).then((data)=>{
                   res(data);
@@ -19,11 +20,13 @@ module.exports.createNote = (note_title, note_content, note_image_url, user_id)=
     });
 }
 
-module.exports.getNotes = (user_id)=>{
+module.exports.getUserNotes = (user_id)=>{
+    console.log('/getUserNotesHelper');
     return new Promise((res,rej)=>{
           db.connect().then((obj)=>{
-              obj.any(noteQueries.getNotes,[user_id]).then((data)=>{
-                  res(data);
+              obj.any(noteQueries.getUserNotes,[user_id]).then((data)=>{
+                console.log(data);  
+                res(data);
                   obj.done();
               }).catch((error)=>{
                   console.log(error);
@@ -54,10 +57,11 @@ module.exports.deleteNote = (note_id)=>{
 	});
 }
 
-module.exports.updateNote = (note_id)=>{
+module.exports.updateNote = (note_id, note_title, note_content,note_image_url, user_id)=>{
 	return new Promise((res,rej)=>{
 		db.connect().then((obj)=>{
-			obj.none(noteQueries.updateNote, [note_id, note_title, note_content, note_image_url, user_id]).then((data)=>{
+            console.log(noteQueries.updateNote);
+			obj.none(noteQueries.updateNote, [note_id, note_title, note_content, note_image_url]).then((data)=>{
 				res(data);
 				obj.done();
 			}).catch((error)=>{

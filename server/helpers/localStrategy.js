@@ -11,9 +11,9 @@ module.exports = new localStrategy({
             return done(null, false);
         }
         User.comparePassword(password, user.user_password).then((isMatch)=>{
-            if (isMatch)
+            if (isMatch){
                 return done(null, user);
-            else
+            }else
                 return done(null, false);
         }).catch((err)=>{
             return done(null, false);
