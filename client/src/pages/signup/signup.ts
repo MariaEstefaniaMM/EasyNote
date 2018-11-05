@@ -2,7 +2,7 @@ import { NotesListPage } from './../notes-list/notes-list';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { UsersProvider } from './../../providers/users/users';
+import { UserProvider } from './../../providers/user/user';
 
 @IonicPage()
 @Component({
@@ -23,11 +23,11 @@ export class SignupPage {
     password:""
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private usersProvider: UsersProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userProvider: UserProvider) {
   }
 
   signUp() {
-    this.usersProvider.createUser(this.user).then((result) => {
+    this.userProvider.createUser(this.user).then((result) => {
       console.log(result);
         this.navCtrl.push(NotesListPage);
     }, (err) => {

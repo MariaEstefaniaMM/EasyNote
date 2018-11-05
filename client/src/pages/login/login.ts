@@ -1,4 +1,4 @@
-import { UsersProvider } from './../../providers/users/users';
+import { UserProvider } from './../../providers/user/user';
 import { NotePage } from './../note/note';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';

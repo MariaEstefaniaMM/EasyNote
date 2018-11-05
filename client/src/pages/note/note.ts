@@ -1,9 +1,8 @@
 import { NotesListPage } from './../notes-list/notes-list';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { Camera, CameraOptions } from '@ionic-native/camera';
-import { AlertController } from 'ionic-angular';
-import { ImagePicker } from '@ionic-native/image-picker';
+import { AlertController, ToastController } from 'ionic-angular';
+import { CameraProvider } from './../../providers/camera/camera';
 
 @IonicPage()
 @Component({
@@ -13,46 +12,31 @@ import { ImagePicker } from '@ionic-native/image-picker';
 
 export class NotePage {
 
-  myPhoto: any; //create a variable to save picture path/source
-  //note: {id: null, title: null, description: null};
+  imageUrl: '';
+  uploaded: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, public alertCtrl: AlertController, private imagePicker: ImagePicker) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public  cameraProvider:CameraProvider) {
 
-<<<<<<< HEAD
-=======
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
->>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
   }
 
-  takePhoto() {
-    console.log('camera');
-    /*const options: CameraOptions = {
-      quality: 70,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options).then((imageData) =>{
-    this.myPhoto = 'data:image/jpeg;base64' + imageData;
-    console.log('photo'); 
-    }, (error) =>{
-      //handle error
-<<<<<<< HEAD
-      console.log(error);
-    });
-=======
-    });*/
->>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
+  takePhoto(){
+    this.cameraProvider.pictureFromCamera().then((res:any)=>{
+      this.imageUrl = res;
+      this.uploaded = true;
+    }).catch((error) =>{
+      alert(error);
+    })
   }
 
-  /*takeImage(){
-    this.imagePicker.getPictures(options).then((result) =>{
-      for (var i=0; i< results.length; i++){
-        console.log('image URI:' + results[i]);
-      }
-    }, (err) =>{});
-  } */
+  takeImage(){
+    this.cameraProvider.pictureFromGallery().then((res:any)=>{
+      this.imageUrl = res;
+      this.uploaded = true;
+    }).catch((error) =>{
+      alert(error);
+    })
+  }
+
 
   deleteAlert(){
     const confirm = this.alertCtrl.create({
@@ -67,7 +51,8 @@ export class NotePage {
         {
           text: 'DELETE',
           handler: ()=>{
-            console.log('SAVE');
+            console.log('deleted');
+            this.deleteToast();
           }
         }
       ]
@@ -75,17 +60,40 @@ export class NotePage {
     confirm.present();
   }
 
-<<<<<<< HEAD
   createNote() {
     this.navCtrl.push(NotesListPage);
-=======
-  createNote(){
-    
->>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123
+  }
+
+  createToast(){
+    let toast = this.toastCtrl.create({
+      message: 'Guardado!',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
+  }
+  deleteToast(){
+    let toast = this.toastCtrl.create({
+      message: 'Eliminado!',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NotePage');
   }
+
+  
+  
 
 }

@@ -2,16 +2,11 @@ import { User } from './../../models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-
 @Injectable()
 export class UserProvider {
 
-<<<<<<< HEAD:client/src/providers/users/users.ts
-  serverUrl:string = "http://192.168.43.31:3000";
-=======
-  serverUrl:string = "http://192.168.43.54:3000";
+  serverUrl:string = "http://192.168.0.101:3000";
   public token:string;
->>>>>>> cf0b1f5707c3d661545a0d0f6fcd190108f6b123:client/src/providers/user/user.ts
 
   constructor(public http: HttpClient) {
     console.log('Hello UsersProvider Provider');
