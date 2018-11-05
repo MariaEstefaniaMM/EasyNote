@@ -8,6 +8,7 @@ let user = require('../helpers/user');
 
 router.post('/login', auth.isLogged, function (req, res, next) {
     passport.authenticate('local',{session: false}, function (err, user, info) {
+        console.log(user);
         if (err) {
             return next(err);
         }

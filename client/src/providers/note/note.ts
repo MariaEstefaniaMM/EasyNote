@@ -6,7 +6,7 @@ import { TokenProvider } from '../token/token';
 @Injectable()
 export class NoteProvider {
 
-  serverUrl:string = "http://192.168.43.54:3000";
+  serverUrl:string = "http://192.168.0.101:3000";
   
 
   constructor(public http: HttpClient, private tokenProvider: TokenProvider) {

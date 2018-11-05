@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const userQueries = require('./../helpers/queries').user;
 
 module.exports.login = (username)=>{
-    return new Promise((res,rej)=>{ 
+    return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
             obj.one(userQueries.getUser,[username]).then((data)=>{
                 res(data);

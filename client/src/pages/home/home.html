@@ -2,7 +2,7 @@
 <ion-content padding>
   <div class="bg">
     <div class="head" text-center>
-      <img class="logo" src="/assets/imgs/logo.jpg" >
+      <img class="logo" src="/assets/imgs/logo.png" >
       <h1>EasyNote</h1>
     </div>
     <div class="inputs">
@@ -12,7 +12,8 @@
       </ion-item>
       <ion-item class="pass">
         <ion-label floating>Password</ion-label>
-        <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+        <ion-input fomrControlName="password" clearOnEdit="true" [(ngModel)]="user.password" type="password"></ion-input>
+       <!-- <ion-icon item-end [name]="passwordIcon" (click)="showHide()" name="eye" style="font-size:32px;"></ion-icon> -->
       </ion-item>
       <button ion-button full class="btn-login" (click)="goToListNotes()">login</button>
       <p class="p-su">New To EasyNote? <a button (click)="goToSignUp()"  style="color: gray"> Sign up now</a></p>

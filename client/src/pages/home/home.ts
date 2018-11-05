@@ -4,7 +4,8 @@ import { NotesListPage } from './../notes-list/notes-list';
 import { UserProvider } from './../../providers/user/user';
 import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ToastController } from 'ionic-angular';
+//import { User } from '../../models/user';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,7 @@ export class HomePage {
   }
 
   constructor(public navCtrl: NavController, private userProvider: UserProvider, public alertCtrl: AlertController,
-              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider) {
+              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider, public toastCtrl: ToastController) {
   }
 
   ionViewWillEnter() {
@@ -38,26 +39,62 @@ export class HomePage {
         this.tokenProvider.token=res.token;
         console.log(this.tokenProvider.token, res.token);
         this.navCtrl.setRoot(NotesListPage);
+        this.presentToast();
     } else {
-      (this.alertCtrl.create({
+      console.log('err')
+      /*(this.alertCtrl.create({
         title: 'Error',
         subTitle: res.message,
         buttons: ['OK']
-      })).present();
+      })).present(); */
     }
-    },
+  },
     (err) => {
-      (this.alertCtrl.create({
+      console.log(err)
+     /* (this.alertCtrl.create({
         title: 'Error',
         subTitle: JSON.stringify(err),
         buttons: ['OK']
-      })).present();          
+      })).present(); */      
     }
-    );
-}
+    ); 
+  }
 
   goToSignUp(){
     this.navCtrl.push(SignupPage);
   }
 
+  missingField(){
+    const confirm = this.alertCtrl.create({
+      title: 'Campos Incompletos',
+    });
+    confirm.present();
+  }
+
+  presentToast(){
+    let toast = this.toastCtrl.create({
+      message: 'Usted ha iniciado sesion',
+      duration: 4000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
+  }
+
+  presentToast_error(){
+    let toast = this.toastCtrl.create({
+      message: 'Error!',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
+  }
+ 
 }

@@ -15,7 +15,7 @@ page-note {
     }
     .n-note{
         position: absolute;
-        transform: translate(10%, 942%);
+        transform: translate(10%, 900%);
     }
     .fab-delete{
         position: absolute;
@@ -26,6 +26,39 @@ page-note {
         color: white;
         transform: translate(19%, 12%);
         width: 207px;
+    }
+    .img-camera{
+        width: 98%;
+        height: 380px;
+
+    }
+    .div-img {
+        width: 353px;
+        position: relative;
+        left: -15px;
+        top: -14px;
+    }
+    ion-item.item.item-block.item-md.item-input {
+        position: relative;
+        left: -25px;
+        width: 358px;
+    }
+    textarea.text-input.text-input-md {
+        position: relative;
+        left: -18px;
+    }
+    .editable{
+        -moz-appearance: textfield-multiline;
+        -webkit-appearance: textarea;
+        font: medium -moz-fixed;
+        font: -webkit-small-control;
+        width: 330px;
+        height: 430px;
+        position: relative;
+        top: 10px;
+        left: -5px;
+        resize: none;
+        padding: 6px;
     }
 }
 
