@@ -2,6 +2,7 @@ import { NotePage } from './../../pages/note/note';
 import { Component, Input, ViewChild } from '@angular/core';
 //import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Platform, Nav, NavController } from 'ionic-angular';
+import { Note } from '../../models/note';
 
 /**
  * Generated class for the NoteListComponent component.
@@ -16,18 +17,15 @@ import { Platform, Nav, NavController } from 'ionic-angular';
 })
 export class NoteListComponent {
 
-  @Input() title: string;
-  @Input() description: string;
+  @Input() note: Note;
   @ViewChild(Nav) nav: Nav;
 
   constructor(public platform: Platform, public navCtrl: NavController) {
     console.log('Hello NoteListComponent Component');
-    this.title = 'Hello';
-    this.description = 'Hello World';
   }
 
-  goToNotes(){
-    this.navCtrl.push(NotePage);
+  goToNotes(note){
+    this.navCtrl.push(NotePage, note);
   }
 
 }

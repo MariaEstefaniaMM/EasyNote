@@ -1,15 +1,7 @@
-<!--<ion-toolbar>
-  <button ion-button menuToggle>
-    <ion-icon name="menu"></ion-icon>
-  </button> 
-  <ion-title>New Note</ion-title>  
-  
-  <menu></menu>
-</ion-toolbar> -->
-
 <ion-header>
   <ion-navbar>
-    <ion-title>New Note</ion-title>
+    <ion-title *ngIf="!newNote" >{{note.note_title}}</ion-title>
+    <ion-title *ngIf="newNote" >New Note</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -20,10 +12,19 @@
       <img class="img-camera" *ngIf="uploaded" src="{{ imageUrl }}"> 
     </div>
   <ion-item>
+<<<<<<< HEAD
     <ion-input placeholder="Title" clearInput class="i-title" ></ion-input>
   </ion-item>
     <ion-textarea  placeholder="Description" rows="34"  name="new-note" class="textarea-note">
     </ion-textarea>
+=======
+    <ion-input placeholder="Title" clearInput [(ngModel)]="note.note_title"></ion-input>
+  </ion-item>
+  <ion-textarea placeholder="Note" rows="34"  name="new-note" class="textarea-note" [(ngModel)]="note.note_content">
+    </ion-textarea>
+    <button ion-fab (click)="createNote()"></button>
+    <p align="center"><img src="{{ myPhoto }}"></p>
+>>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
   </div>
 
   <ion-fab class="n-note">
@@ -34,7 +35,7 @@
       <button ion-fab (click)="takeImage()"><ion-icon name="image"></ion-icon></button>
       <button ion-fab><ion-icon name="create"></ion-icon></button>
       <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
-      <button ion-fab (click)="deleteAlert()">
+      <button ion-fab *ngIf="!newNote" (click)="deleteAlert()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-fab-list> 

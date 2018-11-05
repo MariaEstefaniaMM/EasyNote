@@ -1,7 +1,7 @@
-import { UserProvider } from './../user/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Note } from './../../models/note';
+import { TokenProvider } from '../token/token';
 
 @Injectable()
 export class NoteProvider {
@@ -9,56 +9,31 @@ export class NoteProvider {
   serverUrl:string = "http://192.168.0.101:3000";
   
 
-  constructor(public http: HttpClient, private userProvider: UserProvider) {
+  constructor(public http: HttpClient, private tokenProvider: TokenProvider) {
     console.log('Hello NoteProvider Provider');
   }
 
-  headers = new HttpHeaders().set("Authorization", "Bearer "+ this.userProvider.token);
+  headers = new HttpHeaders().set("Authorization", "Bearer "+ this.tokenProvider.token);
 
-  createNote(note:Note){
-    return new Promise((resolve, reject) => {
-      this.http.post(this.serverUrl+'/note/createNote', note, {headers:this.headers})
-        .subscribe((res:any) => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
+  createNote(note){
+      console.log("createNote", note);
+      return this.http.post(this.serverUrl+'/note/createNote', note, {headers:this.headers})
   }
 
   updateNote(note:Note){
-    return new Promise((resolve, reject) => {
       this.http.put(this.serverUrl+'/note/updateNote', note, {headers:this.headers})
         .subscribe((res:any) => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
+          return res;
     });
   }
 
   deleteNote(note_id){
-    return new Promise((resolve, reject) => {
-      this.http.put(this.serverUrl+'/note/deleteNote', note_id, {headers:this.headers})
-        .subscribe((res:any) => {
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    console.log("deleteNote", note_id);
+      return this.http.post(this.serverUrl+'/note/deleteNote', note_id, {headers:this.headers})
   }
 
   getUserNotes = () =>{
-    console.log(this.userProvider.token);
-    return new Promise((resolve, reject) => {
-      this.http.get(this.serverUrl+'/note/getUserNotes', {headers:this.headers})
-        .subscribe((res:any) => {
-          console.log(res.notes);
-          resolve(res);
-        }, (err) => {
-          reject(err);
-        });
-    });
+    console.log(this.tokenProvider.token);
+    return this.http.get(this.serverUrl+'/note/getUserNotes', {headers:this.headers})
   }
-
 }

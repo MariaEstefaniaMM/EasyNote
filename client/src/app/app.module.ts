@@ -1,3 +1,4 @@
+import { NativeStorage } from '@ionic-native/native-storage';
 import { NoteListComponent } from './../components/note-list/note-list';
 import { MenuComponent } from './../components/menu/menu';
 import { NotesListPage } from './../pages/notes-list/notes-list';
@@ -9,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
 import { Camera } from '@ionic-native/camera';
@@ -18,13 +18,16 @@ import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProvider } from '../providers/user/user';
 import { NoteProvider } from '../providers/note/note';
+<<<<<<< HEAD
 import { CameraProvider } from '../providers/camera/camera';
+=======
+import { TokenProvider } from '../providers/token/token';
+>>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
     NotesListPage,
@@ -40,7 +43,6 @@ import { CameraProvider } from '../providers/camera/camera';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
     NotesListPage,
@@ -51,11 +53,16 @@ import { CameraProvider } from '../providers/camera/camera';
     SplashScreen, 
     Camera, 
     AlertController,
+    NativeStorage,
     ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserProvider,
     NoteProvider,
+<<<<<<< HEAD
     CameraProvider
+=======
+    TokenProvider
+>>>>>>> 770782325c286808bb5c6c6fda8a7b1faad2d048
   ]
 })
 export class AppModule {}
