@@ -30,17 +30,8 @@ export class NotePage {
     this.addCheckbox = !this.addCheckbox;
   }
 
-  takePhoto(){
-    this.cameraProvider.pictureFromCamera().then((res:any)=>{
-      this.imageUrl = res;
-      this.uploaded = true;
-    }).catch((error) =>{
-      alert(error);
-    })
-  }
-
-  takeImage(){
-    this.cameraProvider.pictureFromGallery().then((res:any)=>{
+  chooseImage(){
+    this.cameraProvider.choose().then((res:any)=>{
       this.imageUrl = res;
       this.uploaded = true;
     }).catch((error) =>{
