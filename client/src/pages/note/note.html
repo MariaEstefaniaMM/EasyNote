@@ -8,7 +8,7 @@
 <ion-content padding>
   <div class="inputs">
     <div class="div-img" align="center">
-      <img class="img-camera" *ngIf="uploaded" src="{{ imageUrl }}"> 
+      <img class="img-camera" *ngIf="note.note_image_url" src="{{ note.note_image_url }}"> 
     </div>
   <ion-item>
     <ion-input placeholder="Title" clearInput [(ngModel)]="note.note_title"></ion-input>
@@ -25,12 +25,16 @@
       <button ion-fab (click)="takeImage()"><ion-icon name="image"></ion-icon></button>
       <button ion-fab><ion-icon name="create"></ion-icon></button>
       <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
-     <!-- <button ion-fab (click)="addCheckboxs()"><ion-icon name="checkbox"></ion-icon></button> -->
       <button ion-fab *ngIf="!newNote" (click)="deleteAlert()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-fab-list> 
   </ion-fab>
+  <ion-footer>
+      <ion-toolbar>
+        <ion-title *ngIf="note.updated_at" >Updated at: {{ note.updated_at }}</ion-title>
+      </ion-toolbar>
+    </ion-footer>
 </ion-content>
 
 

@@ -1,19 +1,6 @@
 const express = require('express');
-const multer = require('multer');
 const note = require('../helpers/note');
 const isAuth = require('../middlewares/isAuth').isAuth;
-
-
-let storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './public/uploads');
-    },
-    filename: function (req, file, cb) {
-      cb(null, `${file.originalname}`)
-       }
-    })
-
-let upload = multer({storage:storage});
 let router = express.Router();
 
 router.get('/getUserNotes',isAuth, (req,res)=>{
@@ -29,11 +16,10 @@ router.get('/getUserNotes',isAuth, (req,res)=>{
         }) 
 });
 
-router.post('/createNote',isAuth,upload.single('file'),(req,res)=>{
+router.post('/createNote',isAuth,(req,res)=>{
+      console.log(req);
       console.log("createNote", req.body.note_title+ req.body.note_content+ req.user.user_id);
-      //console.log(req.file.path);
-      //console.log(req.body.note_title+ req.body.note_content+req.file.path+ req.user.user_id);
-      note.createNote(req.body.note_title, req.body.note_content,null, req.user.user_id).then((data) => {
+      note.createNote(req.body.note_title, req.body.note_content,req.body.note_image_url, req.user.user_id).then((data) => {
         res.send({
           data:data,
           status:200});
@@ -46,12 +32,10 @@ router.post('/createNote',isAuth,upload.single('file'),(req,res)=>{
       })
 });
 
-router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
-  //if (req.user !== undefined) {
-    //console.log(req.file.path);
-    //console.log(req)
-    console.log(req.body.note_title+ req.body.note_content+ req.user.user_id)
-    note.updateNote(req.body.note_id, req.body.note_title, req.body.note_content,null).then((data) => {
+router.put('/updateNote',isAuth, (req,res)=>{
+    console.log(req)
+    console.log(req.body.note_title+ req.body.note_content+ req.user.user_id+req.body.note_image_url)
+    note.updateNote(req.body.note_id, req.body.note_title, req.body.note_content,req.body.note_image_url).then((data) => {
       res.send({
         data:data,
         status:200});
@@ -59,15 +43,10 @@ router.put('/updateNote',isAuth, upload.single('file'),(req,res)=>{
       console.log(err)
       res.send({status:403, message:'Could not get notes'});
     })
-  //} else {
-    //res.send({status:500});
-  //}
 });
 
 router.post('/deleteNote',isAuth, (req, res) => {
   console.log(req.body.note_id)
-  //console.log(req)
-  //if (req.user !== undefined) {
     note.deleteNote(req.body.note_id).then((data) => {
         console.log(data);
         res.send({status:200});
@@ -75,9 +54,6 @@ router.post('/deleteNote',isAuth, (req, res) => {
         console.log(err);
         res.send({status:403, message:'Delete note failed'})
       })
-  //} else {
-    //res.send({status:500})
-  //}
 });
 
 module.exports = router;

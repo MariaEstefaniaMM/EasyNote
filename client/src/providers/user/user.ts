@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserProvider {
 
-  serverUrl:string = "http://192.168.0.101:3000";
+  serverUrl:string = "http://localhost:3000";
   public token:string;
 
   constructor(public http: HttpClient) {

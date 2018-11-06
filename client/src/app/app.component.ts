@@ -1,12 +1,11 @@
+import { TokenProvider } from './../providers/token/token';
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { HomePage } from '../pages/home/home';
 import { NotesListPage } from './../pages/notes-list/notes-list';
 import { NotePage } from './../pages/note/note';
-import { TokenProvider } from '../providers/token/token';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +18,8 @@ export class MyApp {
 
   pages: Array<{title: string; component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private tokenProvider: TokenProvider) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+               private tokenProvider: TokenProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -36,15 +36,17 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.rootPage =this.tokenProvider.getToken()?NotesListPage:HomePage;
-      console.log(this.rootPage);
     });
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if(page.title=='Logout'){
+        this.tokenProvider.removeToken();
+        console.log(this.tokenProvider.token)
+    }
+    this.nav.push(page.component);
   }
 }
 

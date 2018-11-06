@@ -15,4 +15,15 @@ page-notes-list {
         position: relative;
         top: 201px;
     }
+    .img-note {
+        width: 64px;
+        height: 64px;
+    }
+    .item-md ion-thumbnail[item-start] {
+        margin: 8px 10px 8px 0;
+    }
+
+    .label{
+        color:black
+    }
 }

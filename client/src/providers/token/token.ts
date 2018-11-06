@@ -18,4 +18,9 @@ export class TokenProvider {
         );  
     return this.token;
     }
+
+    removeToken(){
+      this.nativeStorage.remove('userToken');
+      this.token="";
+    }
   }

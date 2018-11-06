@@ -20,6 +20,17 @@ export class HomePage {
 
   constructor(public navCtrl: NavController, private userProvider: UserProvider, public alertCtrl: AlertController,
               private nativeStorage: NativeStorage, private tokenProvider:TokenProvider, public toastCtrl: ToastController) {
+                console.log('home constructor');
+              }
+
+  ionViewCanEnter(){
+    console.log('CanEnter HomePage');
+    if (this.tokenProvider.getToken()){
+      console.log('go to NotesListPage');
+        this.navCtrl.setRoot(NotesListPage);
+    }else{
+      return true;
+    }
   }
 
   ionViewWillEnter() {
@@ -41,21 +52,21 @@ export class HomePage {
         this.navCtrl.setRoot(NotesListPage);
         this.presentToast();
     } else {
-      console.log('err')
-      /*(this.alertCtrl.create({
+      console.log('err');
+      (this.alertCtrl.create({
         title: 'Error',
         subTitle: res.message,
         buttons: ['OK']
-      })).present(); */
+      })).present();
     }
   },
     (err) => {
-      console.log(err)
-     /* (this.alertCtrl.create({
+      console.log(err);
+     (this.alertCtrl.create({
         title: 'Error',
         subTitle: JSON.stringify(err),
         buttons: ['OK']
-      })).present(); */      
+      })).present();    
     }
     ); 
   }

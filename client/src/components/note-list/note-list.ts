@@ -2,15 +2,8 @@ import { NotesListPage } from './../../pages/notes-list/notes-list';
 import { NoteProvider } from './../../providers/note/note';
 import { NotePage } from './../../pages/note/note';
 import { Component, Input, ViewChild } from '@angular/core';
-import { Platform, Nav, NavController,AlertController } from 'ionic-angular';
+import { Platform, Nav, NavController, AlertController, ToastController } from 'ionic-angular';
 import { Note } from '../../models/note';
-
-/**
- * Generated class for the NoteListComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 
 @Component({
   selector: 'note-list',
@@ -22,7 +15,7 @@ export class NoteListComponent {
   @ViewChild(Nav) nav: Nav;
 
   constructor(public platform: Platform, public navCtrl: NavController, private alertCtrl: AlertController,
-              private noteProvider: NoteProvider) {
+              private noteProvider: NoteProvider, public toastCtrl: ToastController) {
     console.log('Hello NoteListComponent Component');
   }
 
@@ -46,6 +39,7 @@ export class NoteListComponent {
             this.noteProvider.deleteNote(note).subscribe((res:any) => {
               if (res.status==200){
                 console.log(res);
+                this.deleteToast();
                 this.navCtrl.setRoot(NotesListPage);
             }else{
               (this.alertCtrl.create({
@@ -67,6 +61,19 @@ export class NoteListComponent {
       ]
     });
     confirm.present();
+  }
+
+  deleteToast(){
+    let toast = this.toastCtrl.create({
+      message: 'Eliminado!',
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
   }
 
 }

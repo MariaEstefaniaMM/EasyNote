@@ -14,25 +14,19 @@ import { CameraProvider } from './../../providers/camera/camera';
 
 export class NotePage {
 
-  imageUrl: '';
   uploaded: boolean = false;
   note:Note;
-  newNote: boolean;
+  newNote: boolean = false;
   addCheckbox:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public  cameraProvider:CameraProvider,
     private noteProvider:NoteProvider) {
-      this.note=navParams.data; 
-      console.log(this.note);
-  }
-
-  addCheckboxs(){
-    this.addCheckbox = !this.addCheckbox;
+      this.note=navParams.data;
   }
 
   takePhoto(){
     this.cameraProvider.pictureFromCamera().then((res:any)=>{
-      this.imageUrl = res;
+      this.note.note_image_url = res;
       this.uploaded = true;
     }).catch((error) =>{
       alert(error);
@@ -41,7 +35,7 @@ export class NotePage {
 
   takeImage(){
     this.cameraProvider.pictureFromGallery().then((res:any)=>{
-      this.imageUrl = res;
+      this.note.note_image_url = res;
       this.uploaded = true;
     }).catch((error) =>{
       alert(error);
@@ -125,56 +119,19 @@ export class NotePage {
     console.log("willLeave");
     if (Object.keys(this.note).length !== 0){
         if (this.newNote){
-          this.noteProvider.createNote(this.note).subscribe((res:any) => {
-            if (res.status==200){
-                console.log(res);
-                return true;
-            }else{
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: res.message,
-                buttons: ['OK']
-              })).present();
-            }
-          },
-          (err) => {
-            (this.alertCtrl.create({
-              title: 'Error',
-              subTitle: JSON.stringify(err),
-              buttons: ['OK']
-            })).present();          
-          }
-          );
+          this.createNote();
         }else{
           console.log("updateNote");
-          this.noteProvider.updateNote(this.note).subscribe((res:any) => {
-            if (res.status==200){
-                console.log(res);
-                return true;
-            }else{
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: res.message,
-                buttons: ['OK']
-              })).present();
-            }
-          },
-          (err) => {
-            (this.alertCtrl.create({
-              title: 'Error',
-              subTitle: JSON.stringify(err),
-              buttons: ['OK']
-            })).present();
-        });
+          this.updateNote();
       }
-    }else{return true;}     
+    }    
     return true;
   }
 
   createNote(){
     this.noteProvider.createNote(this.note).subscribe((res:any) => {
       if (res.status==200){
-          console.log(res);
+        console.log("Created");
       }else{
         (this.alertCtrl.create({
           title: 'Error',
@@ -191,5 +148,26 @@ export class NotePage {
       })).present();          
     }
     );
+  }
+
+  updateNote(){
+    this.noteProvider.updateNote(this.note).subscribe((res:any) => {
+      if (res.status==200){
+        console.log("Modified");
+      }else{
+        (this.alertCtrl.create({
+          title: 'Error',
+          subTitle: res.message,
+          buttons: ['OK']
+        })).present();
+      }
+    },
+    (err) => {
+      (this.alertCtrl.create({
+        title: 'Error',
+        subTitle: JSON.stringify(err),
+        buttons: ['OK']
+      })).present();
+  });
   }
 }

@@ -7,11 +7,11 @@ var methodOverride = require('method-override');
 var cors = require('cors');
 
 app.use('/views', express.static(__dirname + '/public'));
-app.use(express.json());
+app.use(express.json({limit:'mb'}));
 app.use(methodOverride());
 app.use(cors());
 app.use('*',cors());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({limit:'mb',extended:true}));
 app.use(jwt({
     secret: config.secret
   }).unless({

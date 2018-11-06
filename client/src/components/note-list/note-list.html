@@ -2,10 +2,17 @@
   <ion-item-sliding>
     <button ion-item (click)="goToNotes(note)">
       <ion-thumbnail item-start>
-        <img src="/assets/imgs/logo.jpg">
+        <img *ngIf="!note.note_image_url" class="img-note" src="/assets/imgs/logo.jpg">
+        <img *ngIf="note.note_image_url"  class="img-note" src="{{ note.note_image_url }}">
       </ion-thumbnail>
-      <h2>{{note.note_title}}</h2>
-      <h5>{{note.note_content}}</h5>
+      <ion-label class="label">
+        {{note.note_title}}
+        <h5>{{note.note_content}}</h5>
+        <h6>
+          Created at:
+          <ion-datetime displayFormat="YYYY MM DD, HH:mm" [(ngModel)]="note.created_at"></ion-datetime>
+        </h6>
+      </ion-label>
     </button>
     <ion-item-options side="right">
       <button ion-button color="primary" (click)="goToNotes(note)">

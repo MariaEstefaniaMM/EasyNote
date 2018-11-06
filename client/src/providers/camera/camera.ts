@@ -13,7 +13,6 @@ export class CameraProvider {
   pictureFromCamera() {
     console.log('camera');
     const options: CameraOptions = {
-      quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -40,7 +39,6 @@ export class CameraProvider {
 
   pictureFromGallery(){
     const options: CameraOptions = {
-      quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,

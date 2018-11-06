@@ -36,10 +36,9 @@ module.exports.signup = (name, lastname, username, email, password)=>{
         return new Promise((res,rej)=>{
             let hashedPass = bcrypt.hashSync(password, 10);
               db.connect().then((obj)=>{
-                  obj.one(userQueries.addUser,
-                    [name, lastname, username, email, hashedPass]).then((data)=>{
+                  obj.any(userQueries.addUser,[name, lastname, username, email, hashedPass]).then((data)=>{
                     console.log(data)
-                      res(data);
+                    res(data);
                       obj.done();
                   }).catch((error)=>{
                       console.log(error);
@@ -56,7 +55,7 @@ module.exports.signup = (name, lastname, username, email, password)=>{
 module.exports.checkUser = (username, email)=>{
     return new Promise((res,rej)=>{ 
         db.connect().then((obj)=>{
-            obj.one(userQueries.checkUser,[username, email]).then((data)=>{
+            obj.any(userQueries.checkUser,[username, email]).then((data)=>{
                 res(data);
                 obj.done();                
             }).catch((error)=>{

@@ -1,3 +1,4 @@
+import { TokenProvider } from './../../providers/token/token';
 import { Note } from './../../models/note';
 import { NoteProvider } from './../../providers/note/note';
 import { NotePage } from './../note/note';
@@ -18,12 +19,13 @@ export class NotesListPage {
   searchNotes:Note[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private noteProvider: NoteProvider,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController, private tokenProvider: TokenProvider) {
                 console.log('constructor');
   }
 
   ionViewDidEnter(){
-    console.log('ionViewWillEnter NotesListPage');
+
+    console.log('ionViewDidEnter NotesListPage');
     this.noteProvider.getUserNotes().subscribe((res:any) => {
       if (res.status==200){
       console.log(res.notes);
@@ -45,7 +47,7 @@ export class NotesListPage {
   }
 
     goToNewNotes() {
-      this.navCtrl.push(NotePage, {});
+      this.navCtrl.push(NotePage);
       console.log("aqui");
     }
     
