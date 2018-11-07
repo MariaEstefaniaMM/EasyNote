@@ -1,0 +1,20 @@
+<!-- Generated template for the NoteListComponent component -->
+  <ion-item-sliding>
+    <button ion-item (click)="goToNotes(note)">
+      <ion-thumbnail item-start>
+        <img src="/assets/imgs/logo.jpg">
+      </ion-thumbnail>
+      <h2>{{note.note_title}}</h2>
+      <h5>{{note.note_content}}</h5>
+    </button>
+    <ion-item-options side="right">
+      <button ion-button color="primary">
+        <ion-icon name="create"></ion-icon>
+        edit
+      </button>
+      <button ion-button color="danger">
+        <ion-icon name="trash"></ion-icon>
+        delete
+      </button>
+    </ion-item-options>
+  </ion-item-sliding>

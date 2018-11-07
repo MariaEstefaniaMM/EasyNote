@@ -1,40 +1,40 @@
-<!--
-  Generated template for the NotePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<!-- <ion-header>
+<ion-header>
   <ion-navbar>
-    <ion-buttons start>
-      <button ion-button>
-        <ion-icon name="contact"></ion-icon>
-      </button>
-    </ion-buttons>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Menu</ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="doClick()">
-        <ion-icon name="more"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title *ngIf="!newNote" >{{note.note_title}}</ion-title>
+    <ion-title *ngIf="newNote" >New Note</ion-title>
   </ion-navbar>
-</ion-header> -->
-
-<ion-toolbar>
-  <button ion-button menuToggle right>
-    <ion-icon name="menu"></ion-icon>
-  </button>
-  <ion-title>Notes</ion-title>
-  <ion-buttons end>
-    <button ion-button click="doClick()">
-        <ion-icon name="contact"></ion-icon>
-    </button>
-  </ion-buttons>
-</ion-toolbar>
+</ion-header>
 
 <ion-content padding>
+  <div class="inputs">
+    <div class="div-img" align="center">
+      <img class="img-camera" *ngIf="uploaded" src="{{ imageUrl }}"> 
+    </div>
+  <ion-item>
+    <ion-input placeholder="Title" clearInput [(ngModel)]="note.note_title"></ion-input>
+  </ion-item>
+  <ion-textarea placeholder="Note" rows="34"  name="new-note" class="textarea-note" [(ngModel)]="note.note_content"> 
+    </ion-textarea> 
+  <!--  <div class="editable" contenteditable="true">
+       <ion-list class="ckeck" *ngIf="addCheckbox">
+          <ion-checkbox></ion-checkbox>
+       </ion-list>
+    </div>-->
+  </div>
 
+  <ion-fab class="n-note">
+    <button ion-fab mini>
+      <ion-icon name="arrow-dropright"></ion-icon>
+    </button>
+    <ion-fab-list side="right">
+      <button ion-fab (click)="chooseImage()"><ion-icon name="image"></ion-icon></button>
+     <!-- <button ion-fab (click)="addCheckboxs()"><ion-icon name="checkbox"></ion-icon></button> -->
+      <button ion-fab *ngIf="!newNote" (click)="deleteAlert()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-fab-list> 
+  </ion-fab>
 </ion-content>
+
+
+

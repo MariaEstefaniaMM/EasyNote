@@ -1,3 +1,7 @@
+import { NativeStorage } from '@ionic-native/native-storage';
+import { NoteListComponent } from './../components/note-list/note-list';
+import { MenuComponent } from './../components/menu/menu';
+import { NotesListPage } from './../pages/notes-list/notes-list';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -6,21 +10,26 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { NotePage } from './../pages/note/note';
-import { NotesListPage } from './../pages/notes-list/notes-list';
+import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+import { AlertController } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
-import { UsersProvider } from '../providers/users/users';
+import { UserProvider } from '../providers/user/user';
+import { NoteProvider } from '../providers/note/note';
+import { CameraProvider } from '../providers/camera/camera';
+import { TokenProvider } from '../providers/token/token';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
-    NotesListPage
+    NotesListPage,
+    MenuComponent,
+    NoteListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,16 +40,23 @@ import { UsersProvider } from '../providers/users/users';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
     SignupPage,
     NotePage,
-    NotesListPage
+    NotesListPage,
+    MenuComponent
   ],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen, 
+    Camera, 
+    AlertController,
+    NativeStorage,
+    ImagePicker,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsersProvider
+    UserProvider,
+    NoteProvider,
+    CameraProvider,
+    TokenProvider
   ]
 })
 export class AppModule {}

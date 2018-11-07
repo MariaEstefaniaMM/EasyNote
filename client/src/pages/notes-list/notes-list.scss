@@ -1,3 +1,18 @@
 page-notes-list {
-
+    .n-note{
+        position: absolute;
+        transform: translate(490%, 990%);
+    }
+    .serachbar{
+        width: 280px;
+    }
+    .n-h1{
+        position: absolute;
+        transform: translate(2%, 65%);
+        width: 300px;
+    }
+    ion-list.list.list-md {
+        position: relative;
+        top: 201px;
+    }
 }

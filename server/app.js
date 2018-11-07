@@ -1,5 +1,5 @@
 const express = require('express');
-let session = require('express-session');
+const jwt = require('express-jwt');
 const app = express();
 const config = require('./helpers/config');
 let passport = require('passport');
@@ -10,20 +10,30 @@ app.use('/views', express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(methodOverride());
 app.use(cors());
+app.use('*',cors());
 app.use(express.urlencoded({extended:false}));
-app.use(session({
-    secret:'keyboardcat',
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(jwt({
+    secret: config.secret
+  }).unless({
+    path: ['/session/login', '/session/signup','/', '/favicon.ico']
+  }));;
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/',require('./controllers'));
 
 app.get('/', function (req, res) {
-    console.log("hi");
     res.redirect('views/index.html');
 });
+
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {//token no es valido o hubo un error en la firma o token no existe
+      res.status(401).send({
+        message: 'invalid token...',
+        status:401
+      });
+    }
+  });
+
 passport.use(require('./helpers/localStrategy'));
 passport.serializeUser(function(user, done) {
     done(null, user);
