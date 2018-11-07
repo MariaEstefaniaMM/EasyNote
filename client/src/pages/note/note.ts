@@ -25,17 +25,8 @@ export class NotePage {
       this.originalNote=JSON.parse(JSON.stringify(navParams.data));
   }
 
-  takePhoto(){
-    this.cameraProvider.pictureFromCamera().then((res:any)=>{
-      this.note.note_image_url = res;
-      this.uploaded = true;
-    }).catch((error) =>{
-      alert(error);
-    })
-  }
-
-  takeImage(){
-    this.cameraProvider.pictureFromGallery().then((res:any)=>{
+  chooseImage(){
+    this.cameraProvider.choose().then((res:any)=>{
       this.note.note_image_url = res;
       this.uploaded = true;
     }).catch((error) =>{

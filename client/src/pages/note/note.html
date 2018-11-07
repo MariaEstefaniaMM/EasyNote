@@ -22,9 +22,7 @@
       <ion-icon name="arrow-dropright"></ion-icon>
     </button>
     <ion-fab-list side="right">
-      <button ion-fab (click)="takeImage()"><ion-icon name="image"></ion-icon></button>
-      <button ion-fab><ion-icon name="create"></ion-icon></button>
-      <button ion-fab (click)="takePhoto()"><ion-icon name="camera"></ion-icon></button>
+      <button ion-fab (click)="chooseImage()"><ion-icon name="image"></ion-icon></button>
       <button ion-fab *ngIf="!newNote" (click)="deleteAlert()">
         <ion-icon name="trash"></ion-icon>
       </button>
