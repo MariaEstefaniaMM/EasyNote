@@ -2,5 +2,8 @@
 <button ion-button menuToggle class="menu">
   <ion-icon name="menu"></ion-icon>
 </button>
+<ion-searchbar [(ngModel)]="myInput" class="serachbar" showCancelButton="true" 
+                    (ionInput)="onInput()" (ionCancel)="false"></ion-searchbar>
+
 
 

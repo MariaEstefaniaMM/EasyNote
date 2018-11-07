@@ -50,9 +50,10 @@ export class NotesListPage {
       console.log("aqui");
     }
     
-    onInput(){
+    onInput(myInput){
+      this.myInput=myInput;
         this.searchNotes = this.noteProvider.notes.filter((note) => {
-          return note.note_title.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
+          return note.note_title.toLowerCase().indexOf(myInput.toLowerCase()) > -1;
       }); 
     }
 
