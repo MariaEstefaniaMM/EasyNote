@@ -36,31 +36,35 @@ export class NoteListComponent {
         {
           text: 'DELETE',
           handler: ()=>{
-            this.noteProvider.deleteNote(note).subscribe((res:any) => {
-              if (res.status==200){
-                console.log(res);
-                this.deleteToast();
-                this.navCtrl.setRoot(NotesListPage);
-            }else{
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: res.message,
-                buttons: ['OK']
-              })).present();
-            }
-            }, (err) => {
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: JSON.stringify(err),
-                buttons: ['OK']
-              })).present();          
-            }
-            );
+            this.deleteNote(note);
           }
         }
       ]
     });
     confirm.present();
+  }
+
+  deleteNote(note){
+    this.noteProvider.deleteNote(note).subscribe((res:any) => {
+      if (res.status==200){
+        console.log(res);
+        this.noteProvider.notes.splice(this.noteProvider.notes.indexOf(this.note),1);
+        this.deleteToast();
+    }else{
+      (this.alertCtrl.create({
+        title: 'Error',
+        subTitle: res.message,
+        buttons: ['OK']
+      })).present();
+    }
+    }, (err) => {
+      (this.alertCtrl.create({
+        title: 'Error',
+        subTitle: JSON.stringify(err),
+        buttons: ['OK']
+      })).present();          
+    }
+    );
   }
 
   deleteToast(){

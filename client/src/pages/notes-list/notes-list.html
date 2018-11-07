@@ -14,7 +14,7 @@
                     (ionInput)="onInput()" (ionCancel)="isSearchbarOpened=false"></ion-searchbar>
   </ion-item>
     <div *ngIf="!myInput" >
-      <ion-list  *ngFor="let note of notes">
+      <ion-list  *ngFor="let note of noteProvider.notes">
       <note-list  [note]= "note"></note-list>
       </ion-list>
     </div>

@@ -17,11 +17,12 @@ export class NotePage {
   uploaded: boolean = false;
   note:Note;
   newNote: boolean = false;
-  addCheckbox:boolean = false;
+  originalNote:Note;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public  cameraProvider:CameraProvider,
     private noteProvider:NoteProvider) {
       this.note=navParams.data;
+      this.originalNote=JSON.parse(JSON.stringify(navParams.data));
   }
 
   takePhoto(){
@@ -47,105 +48,36 @@ export class NotePage {
       this.newNote=true;
     console.log('ionViewDidLoad NotePage');
   }
-  
-  deleteAlert(){
-    const confirm = this.alertCtrl.create({
-      title: 'Are you sure you want to delete this note?',
-      buttons: [
-        {
-          text: 'CANCEL',
-          handler: ()=>{
-            console.log('CANCEL');
-          }
-        },
-        {
-          text: 'DELETE',
-          handler: ()=>{
-            this.noteProvider.deleteNote(this.note).subscribe((res:any) => {
-            console.log('deleted');
-              if (res.status==200){
-                console.log(res);
-                this.deleteToast();
-                this.navCtrl.setRoot(NotesListPage);
-            }else{
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: res.message,
-                buttons: ['OK']
-              })).present();
-            }
-            }, (err) => {
-              (this.alertCtrl.create({
-                title: 'Error',
-                subTitle: JSON.stringify(err),
-                buttons: ['OK']
-              })).present();          
-            }
-            );
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }
 
-  createToast(){
-    let toast = this.toastCtrl.create({
-      message: 'Guardado!',
-      duration: 3000,
-      position: 'bottom'
-    });
-
-    toast.onDidDismiss(() =>{
-      console.log('dissmissed toast');
-    });
-    toast.present();
-  }
-
-  deleteToast(){
-    let toast = this.toastCtrl.create({
-      message: 'Eliminado!',
-      duration: 3000,
-      position: 'bottom'
-    });
-
-    toast.onDidDismiss(() =>{
-      console.log('dissmissed toast');
-    });
-    toast.present();
-  } 
-
-  ionViewCanLeave(){
+  ionViewWillLeave(){
+    console.log(this.originalNote);
+    console.log(this.note);
+    console.log(JSON.stringify(this.originalNote)!==JSON.stringify(this.note));
     console.log("willLeave");
     if (Object.keys(this.note).length !== 0){
         if (this.newNote){
           this.createNote();
-        }else{
+        }else if(JSON.stringify(this.originalNote)!==JSON.stringify(this.note)){
           console.log("updateNote");
           this.updateNote();
-      }
+        }
     }    
-    return true;
   }
 
   createNote(){
     this.noteProvider.createNote(this.note).subscribe((res:any) => {
       if (res.status==200){
         console.log("Created");
+        console.log(new Date().toISOString());
+        this.note.created_at=new Date().toISOString();
+        this.noteProvider.notes.push(this.note);
+        this.toast('Note created');
       }else{
-        (this.alertCtrl.create({
-          title: 'Error',
-          subTitle: res.message,
-          buttons: ['OK']
-        })).present();
+        this.errorAlert(JSON.stringify(res.message));
       }
     },
     (err) => {
-      (this.alertCtrl.create({
-        title: 'Error',
-        subTitle: JSON.stringify(err),
-        buttons: ['OK']
-      })).present();          
+      this.errorAlert(JSON.stringify(err));         
     }
     );
   }
@@ -154,20 +86,69 @@ export class NotePage {
     this.noteProvider.updateNote(this.note).subscribe((res:any) => {
       if (res.status==200){
         console.log("Modified");
+        this.note.updated_at=new Date().toISOString();
       }else{
-        (this.alertCtrl.create({
-          title: 'Error',
-          subTitle: res.message,
-          buttons: ['OK']
-        })).present();
+        this.note=this.originalNote;
+        this.errorAlert(JSON.stringify(res.message));
       }
     },
     (err) => {
-      (this.alertCtrl.create({
-        title: 'Error',
-        subTitle: JSON.stringify(err),
-        buttons: ['OK']
-      })).present();
+      this.errorAlert(JSON.stringify(err)); 
   });
   }
+
+  deleteNote(){
+    this.noteProvider.deleteNote(this.note).subscribe((res:any) => {
+      console.log('deleted');
+        if (res.status==200){
+          console.log(res);
+          this.noteProvider.notes.splice(this.noteProvider.notes.indexOf(this.note),1);
+          this.toast('Note deleted');
+          this.navCtrl.setRoot(NotesListPage);
+      }else{
+        this.errorAlert(JSON.stringify(res.message));
+      }
+      }, (err) => {
+        this.errorAlert(JSON.stringify(err));         
+      }
+      );
+  }
+
+  deleteAlert(){
+    const confirm = this.alertCtrl.create({
+      title: 'Are you sure you want to delete this note?',
+      buttons: [
+        {
+          text: 'CANCEL',
+          handler: ()=>{ console.log('CANCEL'); }
+        },
+        {
+          text: 'DELETE',
+          handler: ()=>{ this.deleteNote(); }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  errorAlert(message){
+    (this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['OK']
+    })).present();  
+  }
+
+  toast(message){
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
+  }
+
 }

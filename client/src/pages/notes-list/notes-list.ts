@@ -14,7 +14,7 @@ export class NotesListPage {
 
   public isSearchbarOpened = false;
   
-  notes:Note [];
+  //notes:Note [];
   myInput:string;
   searchNotes:Note[];
 
@@ -24,9 +24,8 @@ export class NotesListPage {
   }
 
   ionViewDidEnter(){
-
     console.log('ionViewDidEnter NotesListPage');
-    this.noteProvider.getUserNotes().subscribe((res:any) => {
+    /*this.noteProvider.getUserNotes().subscribe((res:any) => {
       if (res.status==200){
       console.log(res.notes);
       this.notes=res.notes;
@@ -43,7 +42,7 @@ export class NotesListPage {
       subTitle: JSON.stringify(err),
       buttons: ['OK']
     })).present();
-  }
+  }*/
   }
 
     goToNewNotes() {
@@ -52,7 +51,7 @@ export class NotesListPage {
     }
     
     onInput(){
-        this.searchNotes = this.notes.filter((note) => {
+        this.searchNotes = this.noteProvider.notes.filter((note) => {
           return note.note_title.toLowerCase().indexOf(this.myInput.toLowerCase()) > -1;
       }); 
     }

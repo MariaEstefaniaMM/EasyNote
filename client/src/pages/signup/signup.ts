@@ -3,7 +3,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { NotesListPage } from './../notes-list/notes-list';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { UserProvider } from './../../providers/user/user';
 
 @IonicPage()
@@ -26,7 +26,8 @@ export class SignupPage {
   }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private usersProvider: UserProvider,
-              private nativeStorage:NativeStorage, public alertCtrl: AlertController, private tokenProvider:TokenProvider) {
+              private nativeStorage:NativeStorage, public alertCtrl: AlertController, private tokenProvider:TokenProvider,
+              public toastCtrl: ToastController) {
   }
 
   signUp() {
@@ -41,6 +42,7 @@ export class SignupPage {
     this.usersProvider.createUser(this.user).subscribe((res:any) => {
       if (res.status==200){
           console.log(res);    
+          this.presentToast(res.message);
           this.nativeStorage.setItem('userToken', res.token);
           this.tokenProvider.token=res.token;
           this.navCtrl.push(NotesListPage);
@@ -59,6 +61,18 @@ export class SignupPage {
       })).present();
     }
   }
+  }
 
+  presentToast(message){
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.onDidDismiss(() =>{
+      console.log('dissmissed toast');
+    });
+    toast.present();
   }
 }

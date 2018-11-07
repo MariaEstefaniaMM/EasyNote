@@ -1,11 +1,11 @@
+import { NoteProvider } from './../../providers/note/note';
 import { TokenProvider } from './../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { NotesListPage } from './../notes-list/notes-list';
 import { UserProvider } from './../../providers/user/user';
 import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
-import { NavController, AlertController, ToastController } from 'ionic-angular';
-//import { User } from '../../models/user';
+import { NavController, AlertController} from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -19,7 +19,7 @@ export class HomePage {
   }
 
   constructor(public navCtrl: NavController, private userProvider: UserProvider, public alertCtrl: AlertController,
-              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider, public toastCtrl: ToastController) {
+              private nativeStorage: NativeStorage, private tokenProvider:TokenProvider, private noteProvider: NoteProvider) {
                 console.log('home constructor');
               }
 
@@ -27,7 +27,9 @@ export class HomePage {
     console.log('CanEnter HomePage');
     if (this.tokenProvider.getToken()){
       console.log('go to NotesListPage');
-        this.navCtrl.setRoot(NotesListPage);
+      this.noteProvider.getUserNotes();
+      this.noteProvider.notes=[];
+      this.navCtrl.setRoot(NotesListPage);
     }else{
       return true;
     }
@@ -49,8 +51,9 @@ export class HomePage {
         this.nativeStorage.setItem('userToken', res.token);
         this.tokenProvider.token=res.token;
         console.log(this.tokenProvider.token, res.token);
+        this.noteProvider.notes=[];
+        this.noteProvider.getUserNotes();
         this.navCtrl.setRoot(NotesListPage);
-        this.presentToast();
     } else {
       console.log('err');
       (this.alertCtrl.create({
@@ -73,39 +76,6 @@ export class HomePage {
 
   goToSignUp(){
     this.navCtrl.push(SignupPage);
-  }
-
-  missingField(){
-    const confirm = this.alertCtrl.create({
-      title: 'Campos Incompletos',
-    });
-    confirm.present();
-  }
-
-  presentToast(){
-    let toast = this.toastCtrl.create({
-      message: 'Usted ha iniciado sesion',
-      duration: 4000,
-      position: 'bottom'
-    });
-
-    toast.onDidDismiss(() =>{
-      console.log('dissmissed toast');
-    });
-    toast.present();
-  }
-
-  presentToast_error(){
-    let toast = this.toastCtrl.create({
-      message: 'Error!',
-      duration: 3000,
-      position: 'bottom'
-    });
-
-    toast.onDidDismiss(() =>{
-      console.log('dissmissed toast');
-    });
-    toast.present();
   }
  
 }
