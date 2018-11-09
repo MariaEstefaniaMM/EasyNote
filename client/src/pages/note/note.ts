@@ -30,7 +30,7 @@ export class NotePage {
       this.note.note_image_url = res;
       this.uploaded = true;
     }).catch((error) =>{
-      alert(error);
+      console.log(error);
     })
   }
 
@@ -57,6 +57,7 @@ export class NotePage {
 
   createNote(){
     this.noteProvider.createNote(this.note).subscribe((res:any) => {
+      console.log(res);
       if (res.status==200){
         console.log("Created");
         console.log(new Date().toISOString());
@@ -64,7 +65,7 @@ export class NotePage {
         this.noteProvider.notes.push(this.note);
         this.toast('Note created');
       }else{
-        this.errorAlert(JSON.stringify(res.message));
+        this.errorAlert(res.message);
       }
     },
     (err) => {
@@ -80,7 +81,7 @@ export class NotePage {
         this.note.updated_at=new Date().toISOString();
       }else{
         this.note=this.originalNote;
-        this.errorAlert(JSON.stringify(res.message));
+        this.errorAlert(res.message);
       }
     },
     (err) => {
@@ -97,7 +98,7 @@ export class NotePage {
           this.toast('Note deleted');
           this.navCtrl.setRoot(NotesListPage);
       }else{
-        this.errorAlert(JSON.stringify(res.message));
+        this.errorAlert(res.message);
       }
       }, (err) => {
         this.errorAlert(JSON.stringify(err));         

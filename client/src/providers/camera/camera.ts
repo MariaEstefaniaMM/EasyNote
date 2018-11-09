@@ -55,8 +55,8 @@ export class CameraProvider {
         console.log('photo'); 
         res(this.image)
         }).catch(error =>{
-            rej(error);
-            alert(this.getBase64());
+            console.log(error);
+            //alert(this.getBase64());
         });  
     })  
   }

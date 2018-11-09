@@ -5,12 +5,12 @@
         <img *ngIf="!note.note_image_url" class="img-note" src="/assets/imgs/logo.jpg">
         <img *ngIf="note.note_image_url"  class="img-note" src="{{ note.note_image_url }}">
       </ion-thumbnail>
-      <ion-label class="label">
-        {{note.note_title}}
+      <ion-label class="label" style="color:black">
+        <h2>{{note.note_title}}</h2>
         <h5>{{note.note_content}}</h5>
         <h6>
-          Created at:
-          <ion-datetime displayFormat="YYYY MM DD, HH:mm" [(ngModel)]="note.created_at"></ion-datetime>
+          <ion-datetime *ngIf="!note.updated_at"  displayFormat="YYYY MM DD" [(ngModel)]="note.created_at"></ion-datetime>
+          <ion-datetime *ngIf="note.updated_at"  displayFormat="YYYY MM DD" [(ngModel)]="note.updated_at"></ion-datetime>
         </h6>
       </ion-label>
     </button>

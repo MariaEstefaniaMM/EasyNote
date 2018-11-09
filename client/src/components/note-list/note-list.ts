@@ -69,7 +69,7 @@ export class NoteListComponent {
 
   deleteToast(){
     let toast = this.toastCtrl.create({
-      message: 'Eliminado!',
+      message: 'Deleted!',
       duration: 3000,
       position: 'bottom'
     });

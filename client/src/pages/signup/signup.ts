@@ -1,6 +1,7 @@
+import { NoteProvider } from './../../providers/note/note';
 import { TokenProvider } from './../../providers/token/token';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { NotesListPage } from './../notes-list/notes-list';
+import { HomePage } from './../home/home';
 import { User } from './../../models/user';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
@@ -27,7 +28,7 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private usersProvider: UserProvider,
               private nativeStorage:NativeStorage, public alertCtrl: AlertController, private tokenProvider:TokenProvider,
-              public toastCtrl: ToastController) {
+              public toastCtrl: ToastController, private noteProvider: NoteProvider) {
   }
 
   signUp() {
@@ -43,24 +44,25 @@ export class SignupPage {
       if (res.status==200){
           console.log(res);    
           this.presentToast(res.message);
-          this.nativeStorage.setItem('userToken', res.token);
-          this.tokenProvider.token=res.token;
-          this.navCtrl.push(NotesListPage);
+          //this.nativeStorage.setItem('userToken', res.token);
+          //this.tokenProvider.token=res.token;
+          //this.noteProvider.notes=[];
+          this.navCtrl.push(HomePage);
       }else{
-        (this.alertCtrl.create({
-          title: 'Error',
-          subTitle: res.message,
-          buttons: ['OK']
-        })).present();
+        this.errorAlert(res.message);
       }
     }), (err) => {
-      (this.alertCtrl.create({
-        title: 'Error',
-        subTitle: JSON.stringify(err),
-        buttons: ['OK']
-      })).present();
+      this.errorAlert(JSON.stringify(err)); 
     }
   }
+  }
+
+  errorAlert(message){
+    (this.alertCtrl.create({
+      title: 'Error',
+      subTitle: message,
+      buttons: ['OK']
+    })).present();  
   }
 
   presentToast(message){

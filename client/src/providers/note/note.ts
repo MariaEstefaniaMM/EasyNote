@@ -7,7 +7,7 @@ import { TokenProvider } from '../token/token';
 @Injectable()
 export class NoteProvider {
 
-  serverUrl:string = "http://192.168.42.78:3000";  
+  serverUrl:string = "http://192.168.43.54:3000";  
 
   notes:Note [];
 

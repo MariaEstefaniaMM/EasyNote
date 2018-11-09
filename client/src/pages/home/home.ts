@@ -27,8 +27,8 @@ export class HomePage {
     console.log('CanEnter HomePage');
     if (this.tokenProvider.getToken()){
       console.log('go to NotesListPage');
-      this.noteProvider.getUserNotes();
       this.noteProvider.notes=[];
+      this.noteProvider.getUserNotes();
       this.navCtrl.setRoot(NotesListPage);
     }else{
       return true;
